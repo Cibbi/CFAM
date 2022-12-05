@@ -5,7 +5,6 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Styling;
-using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
 using FluentAvalonia.Core.ApplicationModel;
@@ -13,7 +12,6 @@ using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media;
 using ReactiveUI;
-using VRLabs.UnityPackager.UI;
 
 namespace Cibbi.CFAM.Views.Windows
 {
@@ -23,6 +21,7 @@ namespace Cibbi.CFAM.Views.Windows
         {
             this.WhenActivated(_ => { });
             InitializeComponent();
+            RoutedViewHost.ViewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
             var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
             thm.CustomAccentColor = Color.FromRgb(58,55,191);
             thm.ForceWin32WindowToTheme(this);

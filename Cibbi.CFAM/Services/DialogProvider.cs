@@ -4,7 +4,6 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Cibbi.CFAM.ViewModels;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
-using VRLabs.UnityPackager.UI;
 
 namespace Cibbi.CFAM.Services;
 
@@ -71,7 +70,8 @@ public class DialogProvider
         else
             dialog.SecondaryButtonText = secondaryButtonText;
 
-        var view =  _locator.ResolveView(dialogContent);
+        var view = _locator.ResolveView(dialogContent);
+        if(view is null) throw new ArgumentOutOfRangeException(nameof(ViewModelBase));
         view.ViewModel = dialogContent;
         dialog.Content = view;
 

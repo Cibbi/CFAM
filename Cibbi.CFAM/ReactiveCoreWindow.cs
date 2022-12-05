@@ -1,9 +1,8 @@
-﻿using System;
-using Avalonia;
+﻿using Avalonia;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
 
-namespace VRLabs.UnityPackager.UI;
+namespace Cibbi.CFAM;
 
 
 public class ReactiveCoreWindow<TViewModel> : CoreWindow, IViewFor<TViewModel> where TViewModel : class
