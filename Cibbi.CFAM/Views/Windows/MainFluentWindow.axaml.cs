@@ -15,9 +15,11 @@ using ReactiveUI;
 
 namespace Cibbi.CFAM.Views.Windows
 {
-    public partial class MainWindow : ReactiveCoreWindow<MainWindowViewModel>
+    public partial class MainFluentWindow : ReactiveCoreWindow<MainFluentWindowViewModel>
     {
-        public MainWindow()
+        public string MainListing { get; init; } = "";
+        public string? OptionsListing { get; init; }
+        public MainFluentWindow()
         {
             this.WhenActivated(_ => { });
             InitializeComponent();
@@ -65,7 +67,7 @@ namespace Cibbi.CFAM.Views.Windows
             thm?.ForceWin32WindowToTheme(this);
 
             var navigationItems = new List<NavigationViewItem>();
-            foreach (var page in ViewModel?.GetPages() ?? Enumerable.Empty<Page>())
+            foreach (var page in ViewModel?.GetPages(MainListing) ?? Enumerable.Empty<Page>())
             {
                 navigationItems.Add(new NavigationViewItem
                 {
@@ -74,9 +76,25 @@ namespace Cibbi.CFAM.Views.Windows
                     Icon = new IconSourceElement { IconSource = (IconSource)this.FindResource(page.IconName)! }
                 });
             }
-
+            
             NavMenu.MenuItems = navigationItems;
             
+            if (!string.IsNullOrEmpty(OptionsListing))
+            {
+                var optionsItems = new List<NavigationViewItem>();
+                foreach (var page in ViewModel?.GetPages(OptionsListing) ?? Enumerable.Empty<Page>())
+                {
+                    navigationItems.Add(new NavigationViewItem
+                    {
+                        Content = page.Name,
+                        Tag = page.PageType,
+                        Icon = new IconSourceElement {IconSource = (IconSource) this.FindResource(page.IconName)!}
+                    });
+                }
+
+                NavMenu.FooterMenuItems = optionsItems;
+            }
+
             NavMenu.ItemInvoked += OnNavMenuItemInvoked;
             NavMenu.BackRequested += OnNavMenuBackRequested;
             
@@ -180,7 +198,7 @@ namespace Cibbi.CFAM.Views.Windows
                     }
                 };
 
-                await ani.RunAsync((Animatable)TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost, null);
             }
         }
         

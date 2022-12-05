@@ -4,11 +4,11 @@ namespace Cibbi.CFAM.Services;
 
 public class PagesProvider
 {
-    private List<Page> _pages;
+    private Dictionary<string,List<Page>> _pages;
 
     public PagesProvider()
     {
-        _pages = new List<Page>();
+        _pages = new Dictionary<string, List<Page>>();
         
         var types = AppDomain.CurrentDomain
             .GetAssemblies()
@@ -20,10 +20,25 @@ public class PagesProvider
             .ToList();
 
         foreach (var type in types)
-            _pages.Add(new Page(type.Type, type.Attribute!.Path, type.Attribute.Icon));
+        {
+            var newPage = new Page(type.Type, type.Attribute!.Path, type.Attribute.Icon);
+            if (_pages.TryGetValue(type.Attribute.PageListing, out var pages))
+            {
+                pages.Add(newPage);
+            }
+            else
+            {
+                var newPages = new List<Page>();
+                newPages.Add(newPage);
+                _pages.Add(type.Attribute.PageListing, newPages);
+            }
+        }
     }
-    
-    public IEnumerable<Page> GetPages() => _pages;
+
+    public IEnumerable<Page> GetPages(string listing = "")
+    {
+        return _pages.TryGetValue(listing, out var pages) ? pages : Enumerable.Empty<Page>();
+    }
 }
 
 /*public static class PageExtensions

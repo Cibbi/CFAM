@@ -5,14 +5,15 @@ using ReactiveUI;
 
 namespace Cibbi.CFAM.ViewModels.Windows
 {
-    public class MainWindowViewModel : ViewModelBase, IScreen
+    public class MainFluentWindowViewModel : ViewModelBase, IScreen
     {
+        public string WindowName { get; set; } = "CFAM Window";
         public RoutingState Router { get; } = new ();
         public int NavigationStackCount => Router.NavigationStack.Count;
         
         private readonly PagesProvider _pagesProvider;
 
-        public MainWindowViewModel()
+        public MainFluentWindowViewModel()
         {
             _pagesProvider = AvaloniaLocator.Current.GetRequiredService<PagesProvider>();
 
@@ -20,7 +21,9 @@ namespace Cibbi.CFAM.ViewModels.Windows
             Router.NavigateBack.ThrownExceptions.Subscribe(_ => {});
             Router.NavigateAndReset.ThrownExceptions.Subscribe(_ => {});
 
-            NavigateTo(_pagesProvider.GetPages().First().PageType);
+            var page = _pagesProvider.GetPages().FirstOrDefault();
+            if(page is not null)
+                NavigateTo(page.PageType);
         }
 
         public void NavigateTo(Type routeType, bool reset = false)
@@ -61,9 +64,9 @@ namespace Cibbi.CFAM.ViewModels.Windows
             Router.NavigateBack.Execute(Unit.Default);
         }
         
-        public IEnumerable<Page> GetPages()
+        public IEnumerable<Page> GetPages(string listing = "")
         {
-            return _pagesProvider.GetPages();
+            return _pagesProvider.GetPages(listing);
         }
     }
 }

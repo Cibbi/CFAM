@@ -28,7 +28,7 @@ jobs:
         env:
           SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
       - name: Pack nugets
-        run: dotnet pack -c Release --no-build --output . /p:AssemblyVersion=${{ env.SOURCE_TAG }} /p:Version=${{ env.SOURCE_TAG }}
+        run: dotnet pack Cibbi.CFAM -c Release --no-build --output . /p:AssemblyVersion=${{ env.SOURCE_TAG }} /p:Version=${{ env.SOURCE_TAG }}
         env:
           SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
       - name: Push to NuGet

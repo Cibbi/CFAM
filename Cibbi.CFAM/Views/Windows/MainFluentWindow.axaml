@@ -7,14 +7,14 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:rxui="http://reactiveui.net"
         xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
-        x:Class="Cibbi.CFAM.Views.Windows.MainWindow"
+        x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
         TransparencyLevelHint="AcrylicBlur"
         BorderThickness="0"
         Width="1280" Height="750"
-        Title="VRLabs Unity Packager"><!--VRLabs Unity Packager-->
+        Title="{Binding WindowName}">
 
     <Design.DataContext>
-        <windows:MainWindowViewModel/>
+        <windows:MainFluentWindowViewModel/>
     </Design.DataContext>
     
     <Window.Styles>
@@ -42,6 +42,7 @@
             AlwaysShowHeader="False"
             IsPaneToggleButtonVisible="False"
             PaneDisplayMode="LeftCompact"
+            IsSettingsVisible="False"
             IsBackEnabled="True"
             IsBackButtonVisible="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True">
