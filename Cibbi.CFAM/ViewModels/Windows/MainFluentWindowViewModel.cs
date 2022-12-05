@@ -22,10 +22,6 @@ namespace Cibbi.CFAM.ViewModels.Windows
             Router.Navigate.ThrownExceptions.Subscribe(_ => {}); //TODO: proper exception handling maybe
             Router.NavigateBack.ThrownExceptions.Subscribe(_ => {});
             Router.NavigateAndReset.ThrownExceptions.Subscribe(_ => {});
-
-            var page = _pagesProvider.GetPages(MainListing).FirstOrDefault();
-            if(page is not null)
-                NavigateTo(page.PageType);
         }
 
         public void NavigateTo(Type routeType, bool reset = false)

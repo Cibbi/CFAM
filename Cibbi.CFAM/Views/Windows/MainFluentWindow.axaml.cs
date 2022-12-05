@@ -97,6 +97,9 @@ namespace Cibbi.CFAM.Views.Windows
             NavMenu.BackRequested += OnNavMenuBackRequested;
             
             ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged());
+            
+            if(navigationItems.Count > 0 && navigationItems[0].Tag is Type typ)
+                ViewModel?.NavigateTo(typ);
         }
         
         private void OnNavMenuItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
@@ -162,7 +165,7 @@ namespace Cibbi.CFAM.Views.Windows
                     }
                 };
 
-                await ani.RunAsync((Animatable)TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost, null);
 
                 NavMenu.IsBackButtonVisible = true;
             }
