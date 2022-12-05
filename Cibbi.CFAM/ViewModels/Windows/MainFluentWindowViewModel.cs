@@ -8,6 +8,8 @@ namespace Cibbi.CFAM.ViewModels.Windows
     public class MainFluentWindowViewModel : ViewModelBase, IScreen
     {
         public string WindowName { get; set; } = "CFAM Window";
+        public string MainListing { get; init; } = "";
+        public string? OptionsListing { get; init; }
         public RoutingState Router { get; } = new ();
         public int NavigationStackCount => Router.NavigationStack.Count;
         
@@ -21,7 +23,7 @@ namespace Cibbi.CFAM.ViewModels.Windows
             Router.NavigateBack.ThrownExceptions.Subscribe(_ => {});
             Router.NavigateAndReset.ThrownExceptions.Subscribe(_ => {});
 
-            var page = _pagesProvider.GetPages().FirstOrDefault();
+            var page = _pagesProvider.GetPages(MainListing).FirstOrDefault();
             if(page is not null)
                 NavigateTo(page.PageType);
         }

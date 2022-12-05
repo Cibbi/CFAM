@@ -17,8 +17,6 @@ namespace Cibbi.CFAM.Views.Windows
 {
     public partial class MainFluentWindow : ReactiveCoreWindow<MainFluentWindowViewModel>
     {
-        public string MainListing { get; init; } = "";
-        public string? OptionsListing { get; init; }
         public MainFluentWindow()
         {
             this.WhenActivated(_ => { });
@@ -67,7 +65,7 @@ namespace Cibbi.CFAM.Views.Windows
             thm?.ForceWin32WindowToTheme(this);
 
             var navigationItems = new List<NavigationViewItem>();
-            foreach (var page in ViewModel?.GetPages(MainListing) ?? Enumerable.Empty<Page>())
+            foreach (var page in ViewModel?.GetPages(ViewModel.MainListing) ?? Enumerable.Empty<Page>())
             {
                 navigationItems.Add(new NavigationViewItem
                 {
@@ -79,10 +77,10 @@ namespace Cibbi.CFAM.Views.Windows
             
             NavMenu.MenuItems = navigationItems;
             
-            if (!string.IsNullOrEmpty(OptionsListing))
+            if (!string.IsNullOrEmpty(ViewModel?.OptionsListing))
             {
                 var optionsItems = new List<NavigationViewItem>();
-                foreach (var page in ViewModel?.GetPages(OptionsListing) ?? Enumerable.Empty<Page>())
+                foreach (var page in ViewModel?.GetPages(ViewModel.OptionsListing) ?? Enumerable.Empty<Page>())
                 {
                     navigationItems.Add(new NavigationViewItem
                     {
