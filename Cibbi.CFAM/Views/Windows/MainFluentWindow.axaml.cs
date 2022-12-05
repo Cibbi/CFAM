@@ -12,6 +12,7 @@ using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media;
 using ReactiveUI;
+using IconElement = FluentAvalonia.UI.Controls.IconElement;
 
 namespace Cibbi.CFAM.Views.Windows
 {
@@ -71,7 +72,7 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon = new IconSourceElement { IconSource = (IconSource)this.FindResource(page.IconName)! }
+                    Icon = (IconElement?) this.FindResource(page.IconName) ?? new SymbolIcon{ Symbol = Symbol.Stop} 
                 });
             }
             
