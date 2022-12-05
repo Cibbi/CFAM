@@ -2,7 +2,7 @@
 
 namespace Cibbi.CFAM.Services;
 
-public class PagesProvider
+public class PagesProvider : IPagesProvider
 {
     private Dictionary<string,List<Page>> _pages;
 

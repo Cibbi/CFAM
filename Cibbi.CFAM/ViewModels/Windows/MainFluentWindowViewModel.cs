@@ -13,11 +13,11 @@ namespace Cibbi.CFAM.ViewModels.Windows
         public RoutingState Router { get; } = new ();
         public int NavigationStackCount => Router.NavigationStack.Count;
         
-        private readonly PagesProvider _pagesProvider;
+        private readonly IPagesProvider _pagesProvider;
 
         public MainFluentWindowViewModel()
         {
-            _pagesProvider = AvaloniaLocator.Current.GetRequiredService<PagesProvider>();
+            _pagesProvider = AvaloniaLocator.Current.GetRequiredService<IPagesProvider>();
 
             Router.Navigate.ThrownExceptions.Subscribe(_ => {}); //TODO: proper exception handling maybe
             Router.NavigateBack.ThrownExceptions.Subscribe(_ => {});
