@@ -1,3 +1,5 @@
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Animation;
@@ -20,7 +22,18 @@ namespace Cibbi.CFAM.Views.Windows
     {
         public MainFluentWindow()
         {
-            this.WhenActivated(_ => { });
+            this.WhenActivated(disposable =>
+            {
+                if (ViewModel is null) return;
+                ViewModel.ObservableForProperty(x => x.MainListing)
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Subscribe(_ => RefreshNavigationItems())
+                    .DisposeWith(disposable);
+                ViewModel.ObservableForProperty(x => x.OptionsListing)
+                    .ObserveOn(RxApp.MainThreadScheduler)
+                    .Subscribe(_ => RefreshNavigationFooterItems())
+                    .DisposeWith(disposable);
+            });
             InitializeComponent();
             RoutedViewHost.ViewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
             var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
@@ -65,6 +78,18 @@ namespace Cibbi.CFAM.Views.Windows
 
             thm?.ForceWin32WindowToTheme(this);
 
+            RefreshNavigationItems();
+            RefreshNavigationFooterItems();
+
+            NavMenu.ItemInvoked += OnNavMenuItemInvoked;
+            NavMenu.BackRequested += OnNavMenuBackRequested;
+            
+            ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged());
+        }
+
+        private void RefreshNavigationItems()
+        {
+            NavMenu.MenuItems = null;
             var navigationItems = new List<NavigationViewItem>();
             foreach (var page in ViewModel?.GetPages(ViewModel.MainListing) ?? Enumerable.Empty<Page>())
             {
@@ -72,37 +97,34 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon = (IconElement?) this.FindResource(page.IconName) ?? new SymbolIcon{ Symbol = Symbol.Stop} 
+                    Icon = (IconElement?) this.FindResource(page.IconName) ?? new SymbolIcon {Symbol = Symbol.Stop}
                 });
             }
-            
+
             NavMenu.MenuItems = navigationItems;
             
-            if (!string.IsNullOrEmpty(ViewModel?.OptionsListing))
-            {
-                var optionsItems = new List<NavigationViewItem>();
-                foreach (var page in ViewModel?.GetPages(ViewModel.OptionsListing) ?? Enumerable.Empty<Page>())
-                {
-                    navigationItems.Add(new NavigationViewItem
-                    {
-                        Content = page.Name,
-                        Tag = page.PageType,
-                        Icon = new IconSourceElement {IconSource = (IconSource) this.FindResource(page.IconName)!}
-                    });
-                }
-
-                NavMenu.FooterMenuItems = optionsItems;
-            }
-
-            NavMenu.ItemInvoked += OnNavMenuItemInvoked;
-            NavMenu.BackRequested += OnNavMenuBackRequested;
-            
-            ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged());
-            
-            if(navigationItems.Count > 0 && navigationItems[0].Tag is Type typ)
-                ViewModel?.NavigateTo(typ);
+            if (navigationItems.Count > 0 && navigationItems[0].Tag is Type typ)
+                ViewModel?.NavigateTo(typ, true);
         }
         
+        private void RefreshNavigationFooterItems()
+        {
+            NavMenu.FooterMenuItems = null;
+            if (string.IsNullOrEmpty(ViewModel?.OptionsListing)) return;
+            var optionsItems = new List<NavigationViewItem>();
+            foreach (var page in ViewModel?.GetPages(ViewModel.OptionsListing) ?? Enumerable.Empty<Page>())
+            {
+                optionsItems.Add(new NavigationViewItem
+                {
+                    Content = page.Name,
+                    Tag = page.PageType,
+                    Icon = new IconSourceElement {IconSource = (IconSource) this.FindResource(page.IconName)!}
+                });
+            }
+
+            NavMenu.FooterMenuItems = optionsItems;
+        }
+
         private void OnNavMenuItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
         {
             if (e.InvokedItemContainer is NavigationViewItem nvi && nvi.Tag is Type typ)

@@ -1,4 +1,5 @@
 ﻿using System.Reactive;
+using System.Reactive.Linq;
 using Avalonia;
 using Cibbi.CFAM.Services;
 using ReactiveUI;
