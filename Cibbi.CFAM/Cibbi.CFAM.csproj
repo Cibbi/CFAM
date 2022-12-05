@@ -35,8 +35,4 @@
       <Folder Include="Views" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include=".github\workflows\release.yml" />
-    </ItemGroup>
-
 </Project>
