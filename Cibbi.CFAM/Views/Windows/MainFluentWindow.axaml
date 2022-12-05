@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:rxui="http://reactiveui.net"
+        xmlns:ui1="clr-namespace:VRLabs.UnityPackager.UI"
+        xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
+        x:Class="Cibbi.CFAM.Views.Windows.MainWindow"
+        TransparencyLevelHint="AcrylicBlur"
+        BorderThickness="0"
+        Width="1280" Height="750"
+        Title="VRLabs Unity Packager"><!--VRLabs Unity Packager-->
+
+    <Design.DataContext>
+        <windows:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Styles>
+        <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+            <Setter Property="Margin" Value="0 40 0 0" />
+        </Style>
+        <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
+            <Setter Property="BorderBrush" Value="#464646" />
+        </Style>
+    </Window.Styles>
+    
+    <Grid RowDefinitions="Auto, *">
+        <Grid Grid.Row="0" Name="TitleBarHost" ColumnDefinitions="*" MinHeight="46" Background="Transparent">
+            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       Margin="10 0 0 0"
+                       FontSize="12"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"/>
+        </Grid>
+        <controls:NavigationView
+            Grid.Row="0" Grid.RowSpan="2"
+            Name="NavMenu"
+            Classes="SampleAppNav"
+            AlwaysShowHeader="False"
+            IsPaneToggleButtonVisible="False"
+            PaneDisplayMode="LeftCompact"
+            IsBackEnabled="True"
+            IsBackButtonVisible="{Binding #FrameView.CanGoBack}"
+            IsPaneOpen="True">
+            <Panel Background="{DynamicResource SolidBackgroundFillColorSecondary}">
+                <rxui:RoutedViewHost Router="{Binding Router}" ViewLocator="{Binding ViewLocator}">
+                    <rxui:RoutedViewHost.PageTransition>
+                        <CompositePageTransition>
+                            <CrossFade Duration="0:00:00.150" />
+                        </CompositePageTransition>
+                    </rxui:RoutedViewHost.PageTransition>
+                    <rxui:RoutedViewHost.DefaultContent>
+                        <TextBlock Text="Default content"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </rxui:RoutedViewHost.DefaultContent>
+                </rxui:RoutedViewHost>
+            </Panel>
+        </controls:NavigationView>
+    </Grid>
+
+
+</Window>

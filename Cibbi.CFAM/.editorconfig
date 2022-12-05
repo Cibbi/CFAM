@@ -1,0 +1,11 @@
+﻿[*.cs]
+
+# A ';' separated list of method names to search for when finding a method to raise the
+# PropertyChanged event. If none is found, the first name listed here is used to generate one.
+# Default: OnPropertyChanged;RaisePropertyChanged;NotifyOfPropertyChange;NotifyPropertyChanged
+propertychanged.onpropertychanged_method_name = NotifyPropertyChanged;RaisePropertyChanged;OnPropertyChanged;NotifyOfPropertyChange;NotifyPropertyChanged
+
+# A ';' separated list of method names to search for when finding a method to raise the
+# PropertyChanging event. If none is found, the first name listed here is used to generate one.
+# Default: OnPropertyChanging;RaisePropertyChanging;NotifyOfPropertyChanging;NotifyPropertyChanging
+propertychanged.onpropertychanging_method_name = NotifyPropertyChanging;RaisePropertyChanging;OnPropertyChanging;NotifyOfPropertyChanging;NotifyPropertyChanging

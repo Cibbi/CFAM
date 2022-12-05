@@ -1,0 +1,5 @@
+C:\Users\Christopher Brognara\source\repos\CFAM\Cibbi.CFAM\obj\Debug\net6.0\Cibbi.CFAM.csproj.AssemblyReference.cache
+C:\Users\Christopher Brognara\source\repos\CFAM\Cibbi.CFAM\obj\Debug\net6.0\Cibbi.CFAM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Christopher Brognara\source\repos\CFAM\Cibbi.CFAM\obj\Debug\net6.0\Cibbi.CFAM.AssemblyInfoInputs.cache
+C:\Users\Christopher Brognara\source\repos\CFAM\Cibbi.CFAM\obj\Debug\net6.0\Cibbi.CFAM.AssemblyInfo.cs
+C:\Users\Christopher Brognara\source\repos\CFAM\Cibbi.CFAM\obj\Debug\net6.0\Cibbi.CFAM.csproj.CoreCompileInputs.cache
