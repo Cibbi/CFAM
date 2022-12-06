@@ -2,15 +2,16 @@
 using System.Reactive.Linq;
 using Avalonia;
 using Cibbi.CFAM.Services;
+using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 
 namespace Cibbi.CFAM.ViewModels.Windows
 {
-    public class MainFluentWindowViewModel : ViewModelBase, IScreen
+    public partial class MainFluentWindowViewModel : ViewModelBase, IScreen
     {
         public string WindowName { get; set; } = "CFAM Window";
-        public string MainListing { get; init; } = "";
-        public string? OptionsListing { get; init; }
+        [Notify] private string _mainListing = "";
+        [Notify] private string? _optionsListing;
         public RoutingState Router { get; } = new ();
         public int NavigationStackCount => Router.NavigationStack.Count;
         
