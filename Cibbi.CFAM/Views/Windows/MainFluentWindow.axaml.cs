@@ -39,8 +39,6 @@ namespace Cibbi.CFAM.Views.Windows
             var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
             thm.CustomAccentColor = Color.FromRgb(58,55,191);
             thm.ForceWin32WindowToTheme(this);
-            Width = 1280;
-            Height = 750;
         }
 
         protected override void OnOpened(EventArgs e)
@@ -236,18 +234,15 @@ namespace Cibbi.CFAM.Views.Windows
         
         private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
+            if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
             {
-                // TODO: add Windows version to CoreWindow
-                if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
-                {
-                    TryEnableMicaEffect(sender);
-                }
-                else if (args.NewTheme == FluentAvaloniaTheme.HighContrastModeString)
-                {
-                    // Clear the local value here, and let the normal styles take over for HighContrast theme
-                    SetValue(BackgroundProperty, AvaloniaProperty.UnsetValue);
-                }
+                TryEnableMicaEffect(sender);
+            }
+            else if (args.NewTheme == FluentAvaloniaTheme.HighContrastModeString)
+            {
+                // Clear the local value here, and let the normal styles take over for HighContrast theme
+                SetValue(BackgroundProperty, AvaloniaProperty.UnsetValue);
             }
         }
         
