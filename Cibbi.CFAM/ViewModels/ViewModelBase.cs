@@ -2,31 +2,22 @@
 
 // ReSharper disable VirtualMemberNeverOverridden.Global
 
-namespace Cibbi.CFAM.ViewModels
-{
-    public abstract class ViewModelBase : ReactiveObject
-    {
-        // Used as a target for the NotifyPropertyChanged generator
-        public virtual void NotifyPropertyChanged(string? propertyName = null)
-        {
-            this.RaisePropertyChanged(propertyName);
-        }
+namespace Cibbi.CFAM.ViewModels;
 
-        // Used as a target for the NotifyPropertyChanged generator
-        public virtual void NotifyPropertyChanging(string? propertyName = null)
-        {
-            this.RaisePropertyChanging(propertyName);
-        }
-    }
-    
-    public abstract class RoutableViewModel : ViewModelBase, IRoutableViewModel
+public abstract class ViewModelBase : ReactiveObject
+{
+    public WindowBaseViewModel? RootViewModel { get; set; }
+
+    // Used as a target for the NotifyPropertyChanged generator
+    public virtual void NotifyPropertyChanged(string? propertyName = null)
     {
-        public abstract string UrlPathSegment { get; }
-        public IScreen HostScreen { get; }
-    
-        public RoutableViewModel(IScreen screen)
-        {
-            HostScreen = screen;
-        }
+        this.RaisePropertyChanged(propertyName);
     }
+
+    // Used as a target for the NotifyPropertyChanged generator
+    public virtual void NotifyPropertyChanging(string? propertyName = null)
+    {
+        this.RaisePropertyChanging(propertyName);
+    }
+        
 }

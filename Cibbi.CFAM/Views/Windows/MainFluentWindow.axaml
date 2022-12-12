@@ -10,7 +10,8 @@
         x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
         TransparencyLevelHint="AcrylicBlur"
         BorderThickness="0"
-        Width="1280" Height="750"
+        Width="{Binding WindowWidth}" 
+        Height="{Binding WindowHeight}"
         Title="{Binding WindowName}">
 
     <Design.DataContext>

@@ -37,7 +37,7 @@ public class DialogProvider
         {
             Title = title
         };
-        
+
         return await dialog.ShowAsync(window1);
 
     }
