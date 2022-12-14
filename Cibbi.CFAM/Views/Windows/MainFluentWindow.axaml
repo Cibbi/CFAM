@@ -19,7 +19,7 @@
     </Design.DataContext>
     
     <Window.Styles>
-        <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
             <Setter Property="Margin" Value="0 40 0 0" />
         </Style>
         <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
@@ -39,7 +39,7 @@
         <controls:NavigationView
             Grid.Row="0" Grid.RowSpan="2"
             Name="NavMenu"
-            Classes="SampleAppNav"
+            Classes="MainContent"
             AlwaysShowHeader="False"
             IsPaneToggleButtonVisible="False"
             PaneDisplayMode="LeftCompact"

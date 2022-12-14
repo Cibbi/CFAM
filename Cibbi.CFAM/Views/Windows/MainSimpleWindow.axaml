@@ -15,10 +15,8 @@
   <Design.DataContext>
     <windows:MainSimpleWindowViewModel/>
   </Design.DataContext>
+  
   <Window.Styles>
-    <Style Selector="ui|NavigationView.SampleAppNav[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-      <Setter Property="Margin" Value="0 40 0 0" />
-    </Style>
     <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
       <Setter Property="BorderBrush" Value="#464646" />
     </Style>
@@ -35,8 +33,10 @@
     </Grid>
     <rxui:ViewModelViewHost 
       Name="ContentHost"
+      Classes="MainContent"
       Grid.Row="0" 
       Grid.RowSpan="2"
+      Margin="10 40 10 10"
       ViewModel="{Binding Content}">
       <rxui:ViewModelViewHost.PageTransition>
         <CompositePageTransition>

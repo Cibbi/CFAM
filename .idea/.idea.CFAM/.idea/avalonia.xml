@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="Cibbi.CFAM.Examples.SimpleWindow/App.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
+        <entry key="Cibbi.CFAM.Examples.SimpleWindow/Views/TestContent.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
+        <entry key="Cibbi.CFAM/Views/Windows/MainFluentWindow.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
+        <entry key="Cibbi.CFAM/Views/Windows/MainSimpleWindow.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
