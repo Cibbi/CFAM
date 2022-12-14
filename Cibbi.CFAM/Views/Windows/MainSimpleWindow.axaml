@@ -36,7 +36,7 @@
       Classes="MainContent"
       Grid.Row="0" 
       Grid.RowSpan="2"
-      Margin="10 40 10 10"
+      Margin="10 50 10 10"
       ViewModel="{Binding Content}">
       <rxui:ViewModelViewHost.PageTransition>
         <CompositePageTransition>
