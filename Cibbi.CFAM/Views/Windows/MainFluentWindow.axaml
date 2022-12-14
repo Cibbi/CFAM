@@ -8,7 +8,7 @@
         xmlns:rxui="http://reactiveui.net"
         xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
         x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
-        TransparencyLevelHint="AcrylicBlur"
+        TransparencyLevelHint="None"
         BorderThickness="0"
         Width="{Binding WindowWidth}" 
         Height="{Binding WindowHeight}"

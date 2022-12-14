@@ -7,7 +7,7 @@
         xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Cibbi.CFAM.Views.Windows.MainSimpleWindow"
-        TransparencyLevelHint="AcrylicBlur"
+        TransparencyLevelHint="None"
         BorderThickness="0"
         Width="{Binding WindowWidth}" 
         Height="{Binding WindowHeight}"
