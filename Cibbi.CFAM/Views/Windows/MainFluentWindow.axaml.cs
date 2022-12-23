@@ -33,6 +33,10 @@ namespace Cibbi.CFAM.Views.Windows
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(_ => RefreshNavigationFooterItems())
                     .DisposeWith(disposable);
+                
+                ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged()).DisposeWith(disposable);
+                ViewModel?.WhenAnyValue(x => x.IsPaneToggleVisible)
+                    .Subscribe(_ => OnOptionPaneToggleChanged()).DisposeWith(disposable);
             });
             InitializeComponent();
             RoutedViewHost.ViewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
@@ -81,8 +85,6 @@ namespace Cibbi.CFAM.Views.Windows
 
             NavMenu.ItemInvoked += OnNavMenuItemInvoked;
             NavMenu.BackRequested += OnNavMenuBackRequested;
-            
-            ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged());
         }
 
         private void RefreshNavigationItems()
@@ -150,80 +152,90 @@ namespace Cibbi.CFAM.Views.Windows
             }
             
             int stackCount = ViewModel?.Router.NavigationStack.Count ?? 0;
+            if (ViewModel?.IsPaneToggleVisible ?? false)
+            {
+                if(NavMenu.IsBackButtonVisible && stackCount <= 1)
+                    NavMenu.IsBackButtonVisible = false;
+                else if(!NavMenu.IsBackButtonVisible && stackCount > 1)
+                    NavMenu.IsBackButtonVisible = true;
+                return;
+            }
             if(NavMenu.IsBackButtonVisible && stackCount <= 1)
                 AnimateContentForBackButton(false);
             else if(!NavMenu.IsBackButtonVisible && stackCount > 1)
                 AnimateContentForBackButton(true);
         }
         
+        private void OnOptionPaneToggleChanged()
+        {
+            if((ViewModel?.IsPaneToggleVisible ?? false) && !NavMenu.IsBackButtonVisible)
+                AnimateContentForOptionPane(true);
+            if(!(ViewModel?.IsPaneToggleVisible ?? false) && !NavMenu.IsBackButtonVisible)
+                AnimateContentForOptionPane(false);
+        }
+        
         private async void AnimateContentForBackButton(bool show)
         {
+            var closedThickness = new Thickness(0, 0, 0, 0);
+            var openThickness = new Thickness(36, 0, 0, 0);
             if (show)
             {
-                var ani = new Animation
-                {
-                    Duration = TimeSpan.FromMilliseconds(250),
-                    FillMode = FillMode.Forward,
-                    Children =
-                    {
-                        new KeyFrame
-                        {
-                            Cue = new Cue(0d),
-                            Setters =
-                            {
-                                new Setter(MarginProperty, new Thickness(0, 0, 0, 0))
-                            }
-                        },
-                        new KeyFrame
-                        {
-                            Cue = new Cue(1d),
-                            KeySpline = new KeySpline(0,0,0,1),
-                            Setters =
-                            {
-                                new Setter(MarginProperty, new Thickness(36,0,0,0))
-                            }
-                        }
-                    }
-                };
-
+                var ani = GetContentAnimation(closedThickness, openThickness);
                 await ani.RunAsync(TitleBarHost, null);
-
                 NavMenu.IsBackButtonVisible = true;
             }
             else
             {
                 NavMenu.IsBackButtonVisible = false;
-
-                var ani = new Animation
-                {
-                    Duration = TimeSpan.FromMilliseconds(250),
-                    FillMode = FillMode.Forward,
-                    Children =
-                    {
-                        new KeyFrame
-                        {
-                            Cue = new Cue(0d),
-                            Setters =
-                            {
-                                new Setter(MarginProperty, new Thickness(36, 0, 0, 0))
-                            }
-                        },
-                        new KeyFrame
-                        {
-                            Cue = new Cue(1d),
-                            KeySpline = new KeySpline(0,0,0,1),
-                            Setters =
-                            {
-                                new Setter(MarginProperty, new Thickness(0,0,0,0))
-                            }
-                        }
-                    }
-                };
-
+                var ani = GetContentAnimation(openThickness, closedThickness);
                 await ani.RunAsync(TitleBarHost, null);
             }
         }
         
+        private async void AnimateContentForOptionPane(bool show)
+        {
+            var closedThickness = new Thickness(0, 0, 0, 0);
+            var openThickness = new Thickness(36, 0, 0, 0);
+            if (show)
+            {
+                var ani = GetContentAnimation(closedThickness, openThickness);
+                await ani.RunAsync(TitleBarHost, null);
+            }
+            else
+            {
+                var ani = GetContentAnimation(openThickness, closedThickness);
+                await ani.RunAsync(TitleBarHost, null);
+            }
+        }
+
+        private Animation GetContentAnimation(Thickness startThickness, Thickness endThickness)
+        {
+            return new Animation
+            {
+                Duration = TimeSpan.FromMilliseconds(250),
+                FillMode = FillMode.Forward,
+                Children =
+                {
+                    new KeyFrame
+                    {
+                        Cue = new Cue(0d),
+                        Setters =
+                        {
+                            new Setter(MarginProperty, startThickness)
+                        }
+                    },
+                    new KeyFrame
+                    {
+                        Cue = new Cue(1d),
+                        KeySpline = new KeySpline(0,0,0,1),
+                        Setters =
+                        {
+                            new Setter(MarginProperty, endThickness)
+                        }
+                    }
+                }
+            };
+        }
         private void OnApplicationTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             if (this.FindControl<Grid>("TitleBarHost") is Grid g)

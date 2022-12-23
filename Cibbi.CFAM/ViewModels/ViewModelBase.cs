@@ -1,23 +1,34 @@
-﻿using ReactiveUI;
+﻿using PropertyChanged.SourceGenerator;
+using ReactiveUI;
 
 // ReSharper disable VirtualMemberNeverOverridden.Global
 
 namespace Cibbi.CFAM.ViewModels;
 
-public abstract class ViewModelBase : ReactiveObject
+public abstract partial class ViewModelBase : ReactiveObject
 {
-    public WindowBaseViewModel? RootViewModel { get; set; }
+    [Notify] private WindowBaseViewModel? _rootViewModel;
 
     // Used as a target for the NotifyPropertyChanged generator
-    public virtual void NotifyPropertyChanged(string? propertyName = null)
+    protected virtual void NotifyPropertyChanged(string? propertyName = null)
     {
         this.RaisePropertyChanged(propertyName);
     }
 
     // Used as a target for the NotifyPropertyChanged generator
-    public virtual void NotifyPropertyChanging(string? propertyName = null)
+    protected virtual void NotifyPropertyChanging(string? propertyName = null)
     {
         this.RaisePropertyChanging(propertyName);
     }
+
+    private void OnRootViewModelChanged()
+    {
+        OnRootViewModelSet();
+    }
+
+    protected virtual void OnRootViewModelSet()
+    {
         
+    }
+
 }

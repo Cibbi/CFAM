@@ -8,6 +8,12 @@ namespace Cibbi.CFAM.ViewModels.Windows
 {
     public partial class MainFluentWindowViewModel : RoutedWindowBaseViewModel
     {
+        [Notify] private double _closedPaneWidth = 48.0;
+        [Notify] private double _openPaneWidth = 320.0;
+        [Notify] private bool _isPaneToggleVisible;
+        [Notify] private PanePosition _panePosition = PanePosition.Left;
+        [Notify] private PaneState _paneState = PaneState.Compact;
+
         [Notify] private string _mainListing = "";
         [Notify] private string? _optionsListing;
 

@@ -1,0 +1,27 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Cibbi.CFAM.Examples.FluentWindow.ViewModels"
+             xmlns:converters="clr-namespace:Cibbi.CFAM.Converters;assembly=Cibbi.CFAM"
+             xmlns:panel="clr-namespace:Cibbi.CFAM;assembly=Cibbi.CFAM"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Cibbi.CFAM.Examples.FluentWindow.Views.TestView">
+  <UserControl.Resources>
+    <converters:EnumToEnumListConverter x:Key="EnumConverter" />
+  </UserControl.Resources>
+  <Design.DataContext>
+    <viewModels:TestViewModel/>
+  </Design.DataContext>
+  <StackPanel>
+    <ComboBox 
+      Width="150" 
+      Items="{Binding Position, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      SelectedItem="{Binding Position}" />
+    <ComboBox 
+      Width="150" 
+      Items="{Binding State, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      SelectedItem="{Binding State}" />
+    <CheckBox IsChecked="{Binding IsPaneToggleVisible}"/>
+  </StackPanel>
+</UserControl>

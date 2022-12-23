@@ -7,6 +7,7 @@
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:rxui="http://reactiveui.net"
         xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
+        xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
         x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
         TransparencyLevelHint="None"
         BorderThickness="0"
@@ -14,17 +15,33 @@
         Height="{Binding WindowHeight}"
         Title="{Binding WindowName}">
 
+
+    <Window.Resources>
+      <converters:PaneStatePositionMultiConverter x:Key="PaneConverter" />
+    </Window.Resources>
     <Design.DataContext>
         <windows:MainFluentWindowViewModel/>
     </Design.DataContext>
     
     <Window.Styles>
-        <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False] SplitView /template/ ContentPresenter#PART_PanePresenter">
-            <Setter Property="Margin" Value="0 40 0 0" />
-        </Style>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False][IsPaneToggleButtonVisible=false] SplitView /template/ ContentPresenter#PART_PanePresenter">
+          <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False][IsPaneToggleButtonVisible=true] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Setter Property="Margin" Value="0 4 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False] Button#TogglePaneButton">
+        <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
         <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
             <Setter Property="BorderBrush" Value="#464646" />
         </Style>
+      <Style Selector="ui|NavigationView[PaneDisplayMode=Top].MainContent StackPanel#TopNavArea">
+        <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView[PaneDisplayMode=LeftMinimal].MainContent StackPanel#TopNavArea">
+        <Setter Property="Margin" Value="0 48 0 0" />
+      </Style>
     </Window.Styles>
     
     <Grid RowDefinitions="Auto, *">
@@ -41,12 +58,19 @@
             Name="NavMenu"
             Classes="MainContent"
             AlwaysShowHeader="False"
-            IsPaneToggleButtonVisible="False"
-            PaneDisplayMode="LeftCompact"
+            IsPaneToggleButtonVisible="{Binding IsPaneToggleVisible}"
+            OpenPaneLength="{Binding OpenPaneWidth}"
+            CompactPaneLength="{Binding ClosedPaneWidth}"
             IsSettingsVisible="False"
             IsBackEnabled="True"
             IsBackButtonVisible="{Binding #FrameView.CanGoBack}"
             IsPaneOpen="True">
+          <controls:NavigationView.PaneDisplayMode>
+              <MultiBinding Converter="{StaticResource PaneConverter}">
+                <Binding Path="PanePosition"/>
+                <Binding Path="PaneState"/>
+              </MultiBinding>
+          </controls:NavigationView.PaneDisplayMode>
             <Panel Background="{DynamicResource SolidBackgroundFillColorSecondary}">
                 <rxui:RoutedViewHost Name="RoutedViewHost" Router="{Binding Router}" >
                     <rxui:RoutedViewHost.PageTransition>
