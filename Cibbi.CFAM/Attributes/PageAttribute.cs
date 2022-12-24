@@ -23,14 +23,3 @@ public class PageAttribute : Attribute
         Priority = priority;
     }
 }
-
-[AttributeUsage(AttributeTargets.Class)]
-public class CheckerForAttribute : Attribute
-{
-    public string CheckerType { get; }
-
-    public CheckerForAttribute(string checkerType)
-    {
-        CheckerType = checkerType;
-    }
-}
