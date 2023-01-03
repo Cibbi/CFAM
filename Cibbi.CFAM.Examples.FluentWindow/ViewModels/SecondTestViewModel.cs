@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace Cibbi.CFAM.Examples.FluentWindow.ViewModels;
 
-[Page("", UrlPath, "DocumentIcon2")]
+[Page("", UrlPath, "DocumentIcon")]
 public partial class SecondTestViewModel : RoutableViewModel
 {
     public const string UrlPath = "SecondPageTest";

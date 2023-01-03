@@ -10,5 +10,5 @@
   </Application.Resources>
   <Application.Styles>
       <styling:FluentAvaloniaTheme />
-    </Application.Styles>
+  </Application.Styles>
 </Application>

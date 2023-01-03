@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Styling;
+using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
 using FluentAvalonia.Core.ApplicationModel;
@@ -20,6 +21,7 @@ namespace Cibbi.CFAM.Views.Windows
 {
     public partial class MainFluentWindow : ReactiveCoreWindow<MainFluentWindowViewModel>
     {
+        private IIconsProvider _provider = AvaloniaLocator.Current.GetRequiredService<IIconsProvider>();
         public MainFluentWindow()
         {
             this.WhenActivated(disposable =>
@@ -97,7 +99,7 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon = (IconElement?) this.FindResource(page.IconName) ?? new SymbolIcon {Symbol = Symbol.Stop}
+                    Icon = _provider.GetIconFromName(page.IconName)
                 });
             }
 
@@ -118,7 +120,7 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon = new IconSourceElement {IconSource = (IconSource) this.FindResource(page.IconName)!}
+                    Icon =  _provider.GetIconFromName(page.IconName)
                 });
             }
 
