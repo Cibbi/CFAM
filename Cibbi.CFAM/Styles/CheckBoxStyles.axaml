@@ -1,0 +1,17 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <StackPanel Spacing="5">
+        <CheckBox Background="red" Content="AAA"/>
+        <CheckBox Background="red" Classes="noContent" Content="AAA"/>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+  <Style Selector="CheckBox.noContent /template/ ContentPresenter#ContentPresenter">
+    <Setter Property="IsVisible" Value="False"/>
+  </Style>
+  <Style Selector="CheckBox.noContent">
+    <Setter Property="MinWidth" Value="20"/>
+  </Style>
+</Styles>

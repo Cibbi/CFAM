@@ -1,0 +1,14 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
+             xmlns:fluentIcons="clr-namespace:FluentAvalonia.FluentIcons;assembly=FluentAvalonia.FluentIcons"
+             x:Class="Cibbi.CFAM.Examples.FluentWindow.App">
+  <Application.Resources>
+    <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+    <fluentIcons:FluentIcon  Icon="Document16Regular" x:Key="DocumentIcon"/>
+    <fluentIcons:FluentIcon  Icon="Document16Regular" x:Key="DocumentIcon2"/>
+  </Application.Resources>
+  <Application.Styles>
+      <styling:FluentAvaloniaTheme />
+  </Application.Styles>
+</Application>

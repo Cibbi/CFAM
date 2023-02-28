@@ -1,0 +1,92 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:ui="using:FluentAvalonia.UI.Controls"
+        xmlns:rxui="http://reactiveui.net"
+        xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
+        xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
+        x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
+        TransparencyLevelHint="None"
+        BorderThickness="0"
+        Width="{Binding WindowWidth}" 
+        Height="{Binding WindowHeight}"
+        Title="{Binding WindowName}">
+
+
+    <Window.Resources>
+      <converters:PaneStatePositionMultiConverter x:Key="PaneConverter" />
+    </Window.Resources>
+    <Design.DataContext>
+        <windows:MainFluentWindowViewModel/>
+    </Design.DataContext>
+    
+    <Window.Styles>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False][IsPaneToggleButtonVisible=false] SplitView /template/ ContentPresenter#PART_PanePresenter">
+          <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False][IsPaneToggleButtonVisible=true] SplitView /template/ ContentPresenter#PART_PanePresenter">
+        <Setter Property="Margin" Value="0 4 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView.MainContent[IsBackButtonVisible=False] Button#TogglePaneButton">
+        <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
+        <Style Selector="Window:windows:windows10 /template/ Border#RootBorder">
+            <Setter Property="BorderBrush" Value="#464646" />
+        </Style>
+      <Style Selector="ui|NavigationView[PaneDisplayMode=Top].MainContent StackPanel#TopNavArea">
+        <Setter Property="Margin" Value="0 40 0 0" />
+      </Style>
+      <Style Selector="ui|NavigationView[PaneDisplayMode=LeftMinimal].MainContent StackPanel#TopNavArea">
+        <Setter Property="Margin" Value="0 48 0 0" />
+      </Style>
+    </Window.Styles>
+    
+    <Grid RowDefinitions="Auto, *">
+        <Grid Grid.Row="0" Name="TitleBarHost" ColumnDefinitions="*" MinHeight="46" Background="Transparent">
+            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                       Margin="10 0 0 0"
+                       FontSize="12"
+                       IsHitTestVisible="False"
+                       VerticalAlignment="Center"
+                       Grid.Column="0"/>
+        </Grid>
+        <controls:NavigationView
+            Grid.Row="0" Grid.RowSpan="2"
+            Name="NavMenu"
+            Classes="MainContent"
+            AlwaysShowHeader="False"
+            IsPaneToggleButtonVisible="{Binding IsPaneToggleVisible}"
+            OpenPaneLength="{Binding OpenPaneWidth}"
+            CompactPaneLength="{Binding ClosedPaneWidth}"
+            IsSettingsVisible="False"
+            IsBackEnabled="True"
+            IsBackButtonVisible="{Binding #FrameView.CanGoBack}"
+            IsPaneOpen="True">
+          <controls:NavigationView.PaneDisplayMode>
+              <MultiBinding Converter="{StaticResource PaneConverter}">
+                <Binding Path="PanePosition"/>
+                <Binding Path="PaneState"/>
+              </MultiBinding>
+          </controls:NavigationView.PaneDisplayMode>
+            <Panel Background="{DynamicResource SolidBackgroundFillColorSecondary}">
+                <rxui:RoutedViewHost Name="RoutedViewHost" Router="{Binding Router}" >
+                    <rxui:RoutedViewHost.PageTransition>
+                        <CompositePageTransition>
+                            <CrossFade Duration="0:00:00.150" />
+                        </CompositePageTransition>
+                    </rxui:RoutedViewHost.PageTransition>
+                    <rxui:RoutedViewHost.DefaultContent>
+                        <TextBlock Text="Default content"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </rxui:RoutedViewHost.DefaultContent>
+                </rxui:RoutedViewHost>
+            </Panel>
+        </controls:NavigationView>
+    </Grid>
+
+
+</Window>

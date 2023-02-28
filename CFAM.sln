@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM", "Cibbi.CFAM\Cibbi.CFAM.csproj", "{B573AC61-7E7A-4B29-A893-9A40BE36B11D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{A0ECCB05-43C3-4793-B592-E6047B3A809D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM.Examples.SimpleWindow", "Cibbi.CFAM.Examples.SimpleWindow\Cibbi.CFAM.Examples.SimpleWindow.csproj", "{048AB338-464D-452E-80B7-B0FA30E89C0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM.Examples.FluentWindow", "Cibbi.CFAM.Examples.FluentWindow\Cibbi.CFAM.Examples.FluentWindow.csproj", "{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B573AC61-7E7A-4B29-A893-9A40BE36B11D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B573AC61-7E7A-4B29-A893-9A40BE36B11D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B573AC61-7E7A-4B29-A893-9A40BE36B11D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B573AC61-7E7A-4B29-A893-9A40BE36B11D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048AB338-464D-452E-80B7-B0FA30E89C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048AB338-464D-452E-80B7-B0FA30E89C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048AB338-464D-452E-80B7-B0FA30E89C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048AB338-464D-452E-80B7-B0FA30E89C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{048AB338-464D-452E-80B7-B0FA30E89C0F} = {A0ECCB05-43C3-4793-B592-E6047B3A809D}
+		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B} = {A0ECCB05-43C3-4793-B592-E6047B3A809D}
+	EndGlobalSection
+EndGlobal

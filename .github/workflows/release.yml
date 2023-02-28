@@ -1,0 +1,35 @@
+name: Release to NuGet
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+      - name: Branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+      - name: Build
+        run: dotnet build -c Release /p:AssemblyVersion=${{ env.SOURCE_TAG }} /p:Version=${{ env.SOURCE_TAG }}
+        env:
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+      - name: Test
+        run: dotnet test -c Release --no-build /p:AssemblyVersion=${{ env.SOURCE_TAG }} /p:Version=${{ env.SOURCE_TAG }}
+        env:
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+      - name: Pack nugets
+        run: dotnet pack Cibbi.CFAM -c Release --no-build --output . /p:AssemblyVersion=${{ env.SOURCE_TAG }} /p:Version=${{ env.SOURCE_TAG }}
+        env:
+          SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
+      - name: Push to NuGet
+        run: dotnet nuget push "*.nupkg" --api-key ${{secrets.nuget_api_key}} --source https://api.nuget.org/v3/index.json
