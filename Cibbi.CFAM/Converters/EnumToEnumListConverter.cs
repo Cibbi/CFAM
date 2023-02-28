@@ -5,7 +5,8 @@ namespace Cibbi.CFAM.Converters;
 
 public class EnumToEnumListConverter : IValueConverter
 {
-    public static EnumToEnumListConverter Instance = new();
+    // ReSharper disable once UnusedMember.Global
+    public static EnumToEnumListConverter Instance { get; set; } = new();
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is Enum e)
