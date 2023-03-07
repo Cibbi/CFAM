@@ -22,6 +22,10 @@
       Width="150" 
       Items="{Binding State, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
       SelectedItem="{Binding State}" />
+    <ComboBox 
+      Width="150" 
+      Items="{Binding WindowState, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      SelectedItem="{Binding WindowState}" />
     <CheckBox IsChecked="{Binding IsPaneToggleVisible}"/>
   </StackPanel>
 </UserControl>

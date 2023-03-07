@@ -14,6 +14,7 @@ public partial class TestViewModel : RoutableViewModel
 
     [Notify] private PanePosition _position;
     [Notify] private PaneState _state;
+    [Notify] private WindowState _windowState;
     [Notify] private bool _isPaneToggleVisible;
 
     public TestViewModel(IScreen screen) : base(screen)
@@ -35,6 +36,12 @@ public partial class TestViewModel : RoutableViewModel
     {
         if (RootViewModel is MainFluentWindowViewModel fluent)
             fluent.PanePosition = Position;
+    }
+
+    private void OnWindowStateChanged()
+    {
+        if (RootViewModel is MainFluentWindowViewModel fluent)
+            fluent.WindowState = WindowState;
     }
     
     private void OnStateChanged()

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
 using Cibbi.CFAM.Views;
 using Cibbi.CFAM.Views.Windows;
@@ -9,7 +10,7 @@ namespace Cibbi.CFAM.Examples.FluentWindow
 {
     public class ViewLocator : IViewLocator
     {
-        public static MainFluentWindowViewModel MainViewModel { get; } = new() {WindowName = "Fluent Window Test"};
+        public static MainFluentWindowViewModel MainViewModel { get; } = new() {WindowName = "Fluent Window Test" };
         public static MainFluentWindow MainWindow { get; } = new() {DataContext = MainViewModel};
         public static ViewLocator Current { get; } = new();
         
