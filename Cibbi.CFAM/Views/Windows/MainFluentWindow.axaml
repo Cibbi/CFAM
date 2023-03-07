@@ -13,7 +13,8 @@
         BorderThickness="0"
         Width="{Binding WindowWidth}" 
         Height="{Binding WindowHeight}"
-        Title="{Binding WindowName}">
+        Title="{Binding WindowName}"
+        WindowState="{Binding WindowState, Converter={x:Static converters:WindowStateConverter.Instance}}">
 
 
     <Window.Resources>

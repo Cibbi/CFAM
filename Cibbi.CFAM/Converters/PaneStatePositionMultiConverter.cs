@@ -7,8 +7,8 @@ namespace Cibbi.CFAM.Converters;
 public class PaneStatePositionMultiConverter : IMultiValueConverter
 {
     // ReSharper disable once UnusedMember.Global
-    public static PaneStatePositionMultiConverter Instance { get; set; } = new();
-    public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
+    public static readonly PaneStatePositionMultiConverter Instance = new();
+    public object Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {
         if (values.Count != 2 || values[0] is not PanePosition position || values[1] is not PaneState state)
             return NavigationViewPaneDisplayMode.LeftCompact;
