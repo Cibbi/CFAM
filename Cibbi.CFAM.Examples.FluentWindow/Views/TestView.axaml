@@ -27,5 +27,6 @@
       Items="{Binding WindowState, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
       SelectedItem="{Binding WindowState}" />
     <CheckBox IsChecked="{Binding IsPaneToggleVisible}"/>
+    <Button Content="Test task" Command="{Binding ShowDialogCommand}" />
   </StackPanel>
 </UserControl>

@@ -1,4 +1,12 @@
-﻿using Cibbi.CFAM.Attributes;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using Avalonia;
+using Cibbi.CFAM.Attributes;
+using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
 using PropertyChanged.SourceGenerator;
@@ -17,9 +25,29 @@ public partial class TestViewModel : RoutableViewModel
     [Notify] private WindowState _windowState;
     [Notify] private bool _isPaneToggleVisible;
 
+    private DialogProvider _provider = AvaloniaLocator.Current.GetRequiredService<DialogProvider>();
+    
+    public ReactiveCommand<Unit, Unit> ShowDialogCommand { get; set; }
+
     public TestViewModel(IScreen screen) : base(screen)
     {
-        
+        ShowDialogCommand = ReactiveCommand.CreateFromTask(ShowDialog);
+    }
+
+    private async Task ShowDialog()
+    {
+        var taskDialog = _provider.GetTaskDialog();
+        taskDialog.Header = "test";
+        taskDialog.SubHeader = "test sub";
+        taskDialog.Content = "Description";
+
+
+        foreach (int index in Enumerable.Range(0, 100))
+        {
+            taskDialog.Progress = index;
+            await Task.Delay(100);
+        }
+        taskDialog.Close();
     }
 
     protected override void OnRootViewModelSet()

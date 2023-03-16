@@ -2,6 +2,9 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data;
+using Avalonia.VisualTree;
+using Cibbi.CFAM.Converters;
 using Cibbi.CFAM.ViewModels;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
@@ -143,5 +146,42 @@ public class DialogProvider
             ContentDialogResult.Secondary => DialogResult.Secondary,
             _ => DialogResult.None
         };
+    }
+    
+    public TaskDialogViewModel GetTaskDialog()
+    {
+        
+        var dialog = new TaskDialog()
+        {
+            [!TaskDialog.HeaderProperty] = new Binding("Header", BindingMode.OneWay),
+            [!TaskDialog.SubHeaderProperty] = new Binding("SubHeader", BindingMode.OneWay),
+            [!TaskDialog.ContentProperty] = new Binding("Content", BindingMode.OneWay),
+
+        };
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime applicationLifetime2)
+        {
+            Window window1 = (Window) null;
+            foreach (Window window2 in (IEnumerable<Window>) applicationLifetime2.Windows)
+            {
+                if (window2.IsActive)
+                {
+                    window1 = window2;
+                    break;
+                }
+            }
+            if (window1 == null)
+                window1 = applicationLifetime2.MainWindow;
+            dialog.XamlRoot = window1;
+        }
+        else if (Application.Current.ApplicationLifetime is ISingleViewApplicationLifetime applicationLifetime1)
+            dialog.XamlRoot = applicationLifetime1.MainView;
+        
+        TaskDialogViewModel viewModel = new TaskDialogViewModel(dialog.ShowAsync(true), 
+            x => dialog.SetProgressBarState(x, TaskDialogProgressState.Normal), 
+            () => dialog.Hide());
+        dialog.ShowProgressBar = true;
+        dialog.DataContext = viewModel;
+
+        return viewModel;
     }
 }
