@@ -113,8 +113,8 @@ public class DialogProvider
 
         return await dialog.ShowAsync(window);
     }
-    
-    public async Task<DialogResult> ShowCustomDialogAsync(ViewModelBase dialogContent, string title, string closeButtonText = "Cancel",  string primaryButtonText = "", string secondaryButtonText = "")
+
+    public async Task<DialogResult> ShowCustomDialogAsync(ViewModelBase? dialogContent, string title, string closeButtonText = "Cancel",  string primaryButtonText = "", string secondaryButtonText = "")
     {
         var dialog = new ContentDialog
         {
@@ -132,10 +132,13 @@ public class DialogProvider
         else
             dialog.SecondaryButtonText = secondaryButtonText;
 
-        var view = _locator.ResolveView(dialogContent);
-        if(view is null) throw new ArgumentOutOfRangeException(nameof(ViewModelBase));
-        view.ViewModel = dialogContent;
-        dialog.Content = view;
+        if (dialogContent is not null)
+        {
+            var view = _locator.ResolveView(dialogContent);
+            if (view is null) throw new ArgumentOutOfRangeException(nameof(ViewModelBase));
+            view.ViewModel = dialogContent;
+            dialog.Content = view;
+        }
 
         ContentDialogResult result = await dialog.ShowAsync();
 
