@@ -3,10 +3,13 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.ViewModels.Windows;
 using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Media;
+using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Views.Windows;
 
@@ -16,11 +19,11 @@ public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewM
     {
         InitializeComponent();
         
-        ContentHost.ViewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
+        ContentHost.ViewLocator = Locator.Current.GetRequiredService<IViewLocator>();
         
-        var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
+        /*var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
         thm.CustomAccentColor = Color.FromRgb(58,55,191);
-        thm.ForceWin32WindowToTheme(this);
+        thm.ForceWin32WindowToTheme(this);*/
     }
     
     protected override void OnOpened(EventArgs e)
@@ -29,23 +32,24 @@ public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewM
             
         if (TitleBar != null)
         {
-            TitleBar.ExtendViewIntoTitleBar = true;
+            TitleBar.ExtendsContentIntoTitleBar = true;
+            TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
 
             // TitleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
 
-            if (this.FindControl<Grid>("TitleBarHost") is { } g)
+            /*if (this.FindControl<Grid>("TitleBarHost") is { } g)
             {
                 SetTitleBar(g);
                 g.Margin = new Thickness(0, 0, TitleBar.SystemOverlayRightInset, 0);
-            }
+            }*/
         }
 
-        var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
+        /*var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
         if(thm is not null)
-            thm.RequestedThemeChanged += OnRequestedThemeChanged;
+            thm.RequestedThemeChanged += OnRequestedThemeChanged;*/
 
         // Enable Mica on Windows 11
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        /*if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
             if (IsWindows11 && thm is not null && thm.RequestedTheme != FluentAvaloniaTheme.HighContrastModeString)
             {
@@ -56,10 +60,10 @@ public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewM
             }
         }
 
-        thm?.ForceWin32WindowToTheme(this);
+        thm?.ForceWin32WindowToTheme(this);*/
     }
     
-    private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
+    /*private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
     {
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
         if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
@@ -71,9 +75,9 @@ public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewM
             // Clear the local value here, and let the normal styles take over for HighContrast theme
             SetValue(BackgroundProperty, AvaloniaProperty.UnsetValue);
         }
-    }
+    }*/
     
-    private void TryEnableMicaEffect(FluentAvaloniaTheme thm)
+    /*private void TryEnableMicaEffect(FluentAvaloniaTheme thm)
     {
         if (thm.RequestedTheme == FluentAvaloniaTheme.DarkModeString)
         {
@@ -92,5 +96,5 @@ public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewM
 
             Background = new ImmutableSolidColorBrush(color, 0.9);
         }
-    }
+    }*/
 }

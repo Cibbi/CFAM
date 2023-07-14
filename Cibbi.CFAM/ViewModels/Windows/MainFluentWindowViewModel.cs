@@ -1,8 +1,9 @@
 ﻿using System.Reactive;
-using Avalonia;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.Services;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.ViewModels.Windows
 {
@@ -21,7 +22,7 @@ namespace Cibbi.CFAM.ViewModels.Windows
 
         public MainFluentWindowViewModel()
         {
-            _pagesProvider = AvaloniaLocator.Current.GetRequiredService<IPagesProvider>();
+            _pagesProvider =Locator.Current.GetRequiredService<IPagesProvider>();
 
             Router.Navigate.ThrownExceptions.Subscribe(_ => {}); //TODO: proper exception handling maybe
             Router.NavigateBack.ThrownExceptions.Subscribe(_ => {});

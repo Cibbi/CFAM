@@ -1,11 +1,12 @@
 ﻿using Avalonia;
 using FluentAvalonia.UI.Controls;
+using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
 
 namespace Cibbi.CFAM;
 
 
-public class ReactiveCoreWindow<TViewModel> : CoreWindow, IViewFor<TViewModel> where TViewModel : class
+public class ReactiveCoreWindow<TViewModel> : AppWindow, IViewFor<TViewModel> where TViewModel : class
 {
     public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty
         .Register<ReactiveCoreWindow<TViewModel>, TViewModel?>(nameof(ViewModel));

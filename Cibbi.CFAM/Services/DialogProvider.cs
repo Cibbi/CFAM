@@ -5,9 +5,11 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
 using Avalonia.VisualTree;
 using Cibbi.CFAM.Converters;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.ViewModels;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Services;
 
@@ -20,7 +22,7 @@ public enum DialogResult
 
 public class DialogProvider
 {
-    private readonly IViewLocator _locator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
+    private readonly IViewLocator _locator = Locator.Current.GetRequiredService<IViewLocator>();
     
     public async Task<string?> ShowOpenFolderDialogAsync(string title)
     {

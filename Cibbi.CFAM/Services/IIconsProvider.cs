@@ -1,8 +1,9 @@
-﻿using FluentAvalonia.UI.Controls;
+﻿using Avalonia.Controls;
+using FluentAvalonia.UI.Controls;
 
 namespace Cibbi.CFAM.Services;
 
 public interface IIconsProvider
 {
-    IconElement GetIconFromName(string name);
+    IconSource GetIconFromName(string name);
 }

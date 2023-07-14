@@ -7,20 +7,22 @@ using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Styling;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
-using FluentAvalonia.Core.ApplicationModel;
 using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
 using FluentAvalonia.UI.Media;
+using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Views.Windows
 {
     public partial class MainFluentWindow : ReactiveCoreWindow<MainFluentWindowViewModel>
     {
-        private IIconsProvider _provider = AvaloniaLocator.Current.GetRequiredService<IIconsProvider>();
+        private IIconsProvider _provider = Locator.Current.GetRequiredService<IIconsProvider>();
         public MainFluentWindow()
         {
             this.WhenActivated(disposable =>
@@ -40,10 +42,13 @@ namespace Cibbi.CFAM.Views.Windows
                     .Subscribe(_ => OnOptionPaneToggleChanged()).DisposeWith(disposable);
             });
             InitializeComponent();
-            RoutedViewHost.ViewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
-            var thm = AvaloniaLocator.Current.GetRequiredService<FluentAvaloniaTheme>();
+            RoutedViewHost.ViewLocator = Locator.Current.GetRequiredService<IViewLocator>();
+            TitleBar.ExtendsContentIntoTitleBar = true;
+            TitleBar.TitleBarHitTestType = TitleBarHitTestType.Complex;
+            
+            /*var thm = Locator.Current.GetRequiredService<FluentAvaloniaTheme>();
             thm.CustomAccentColor = Color.FromRgb(58,55,191);
-            thm.ForceWin32WindowToTheme(this);
+            thm.ForceWin32WindowToTheme(this);*/
         }
 
         protected override void OnOpened(EventArgs e)
@@ -52,17 +57,17 @@ namespace Cibbi.CFAM.Views.Windows
             
             if (TitleBar != null)
             {
-                TitleBar.ExtendViewIntoTitleBar = true;
+                TitleBar.ExtendsContentIntoTitleBar = true;
 
                // TitleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
 
-                if (this.FindControl<Grid>("TitleBarHost") is Grid g)
+                /*if (this.FindControl<Grid>("TitleBarHost") is Grid g)
                 {
                     SetTitleBar(g);
                     g.Margin = new Thickness(0, 0, TitleBar.SystemOverlayRightInset, 0);
-                }
+                }*/
             }
-
+/*
             var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
             if(thm is not null)
                 thm.RequestedThemeChanged += OnRequestedThemeChanged;
@@ -80,7 +85,7 @@ namespace Cibbi.CFAM.Views.Windows
             }
 
             thm?.ForceWin32WindowToTheme(this);
-
+*/
             RefreshNavigationItems();
             RefreshNavigationFooterItems();
 
@@ -90,7 +95,7 @@ namespace Cibbi.CFAM.Views.Windows
 
         private void RefreshNavigationItems()
         {
-            NavMenu.MenuItems = null;
+            NavMenu.MenuItemsSource = null;
             var navigationItems = new List<NavigationViewItem>();
             foreach (var page in ViewModel?.GetPages(ViewModel.MainListing) ?? Enumerable.Empty<Page>())
             {
@@ -98,11 +103,11 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon = _provider.GetIconFromName(page.IconName)
+                    IconSource = _provider.GetIconFromName(page.IconName)
                 });
             }
 
-            NavMenu.MenuItems = navigationItems;
+            NavMenu.MenuItemsSource = navigationItems;
             
             if (navigationItems.Count > 0 && navigationItems[0].Tag is Type typ)
                 ViewModel?.NavigateTo(typ, true);
@@ -110,7 +115,7 @@ namespace Cibbi.CFAM.Views.Windows
         
         private void RefreshNavigationFooterItems()
         {
-            NavMenu.FooterMenuItems = null;
+            NavMenu.FooterMenuItemsSource = null;
             if (string.IsNullOrEmpty(ViewModel?.OptionsListing)) return;
             var optionsItems = new List<NavigationViewItem>();
             foreach (var page in ViewModel?.GetPages(ViewModel.OptionsListing) ?? Enumerable.Empty<Page>())
@@ -119,11 +124,11 @@ namespace Cibbi.CFAM.Views.Windows
                 {
                     Content = page.Name,
                     Tag = page.PageType,
-                    Icon =  _provider.GetIconFromName(page.IconName)
+                    IconSource =  _provider.GetIconFromName(page.IconName)
                 });
             }
 
-            NavMenu.FooterMenuItems = optionsItems;
+            NavMenu.FooterMenuItemsSource = optionsItems;
         }
 
         private void OnNavMenuItemInvoked(object? sender, NavigationViewItemInvokedEventArgs e)
@@ -182,14 +187,14 @@ namespace Cibbi.CFAM.Views.Windows
             if (show)
             {
                 var ani = GetContentAnimation(closedThickness, openThickness);
-                await ani.RunAsync(TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost);
                 NavMenu.IsBackButtonVisible = true;
             }
             else
             {
                 NavMenu.IsBackButtonVisible = false;
                 var ani = GetContentAnimation(openThickness, closedThickness);
-                await ani.RunAsync(TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost);
             }
         }
         
@@ -200,12 +205,12 @@ namespace Cibbi.CFAM.Views.Windows
             if (show)
             {
                 var ani = GetContentAnimation(closedThickness, openThickness);
-                await ani.RunAsync(TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost);
             }
             else
             {
                 var ani = GetContentAnimation(openThickness, closedThickness);
-                await ani.RunAsync(TitleBarHost, null);
+                await ani.RunAsync(TitleBarHost);
             }
         }
 
@@ -237,15 +242,15 @@ namespace Cibbi.CFAM.Views.Windows
                 }
             };
         }
-        private void OnApplicationTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        /*private void OnApplicationTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             if (this.FindControl<Grid>("TitleBarHost") is Grid g)
             {
                 g.Margin = new Thickness(0, 0, sender.SystemOverlayRightInset, 0);
             }
-        }
+        }*/
         
-        private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
+        /*private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
             if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
@@ -257,9 +262,9 @@ namespace Cibbi.CFAM.Views.Windows
                 // Clear the local value here, and let the normal styles take over for HighContrast theme
                 SetValue(BackgroundProperty, AvaloniaProperty.UnsetValue);
             }
-        }
+        }*/
         
-        private void TryEnableMicaEffect(FluentAvaloniaTheme thm)
+        /*private void TryEnableMicaEffect(FluentAvaloniaTheme thm)
         {
             if (thm.RequestedTheme == FluentAvaloniaTheme.DarkModeString)
             {
@@ -278,6 +283,6 @@ namespace Cibbi.CFAM.Views.Windows
 
                 Background = new ImmutableSolidColorBrush(color, 0.9);
             }
-        }
+        }*/
     }
 }

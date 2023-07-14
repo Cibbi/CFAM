@@ -6,11 +6,13 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Cibbi.CFAM.Attributes;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Windows;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Examples.FluentWindow.ViewModels;
 
@@ -25,7 +27,7 @@ public partial class TestViewModel : RoutableViewModel
     [Notify] private WindowState _windowState;
     [Notify] private bool _isPaneToggleVisible;
 
-    private DialogProvider _provider = AvaloniaLocator.Current.GetRequiredService<DialogProvider>();
+    private DialogProvider _provider = Locator.Current.GetRequiredService<DialogProvider>();
     
     public ReactiveCommand<Unit, Unit> ShowDialogCommand { get; set; }
 

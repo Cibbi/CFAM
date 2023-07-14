@@ -16,15 +16,15 @@
   <StackPanel>
     <ComboBox 
       Width="150" 
-      Items="{Binding Position, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      ItemsSource="{Binding Position, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
       SelectedItem="{Binding Position}" />
     <ComboBox 
       Width="150" 
-      Items="{Binding State, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      ItemsSource="{Binding State, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
       SelectedItem="{Binding State}" />
     <ComboBox 
       Width="150" 
-      Items="{Binding WindowState, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
+      ItemsSource="{Binding WindowState, Converter={StaticResource EnumConverter}, Mode=OneTime}" 
       SelectedItem="{Binding WindowState}" />
     <CheckBox IsChecked="{Binding IsPaneToggleVisible}"/>
     <Button Content="Test task" Command="{Binding ShowDialogCommand}" />

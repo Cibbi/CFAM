@@ -3,9 +3,11 @@ using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.ViewModels;
 using Humanizer;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Views;
 
@@ -27,7 +29,7 @@ public partial class AutoView : UserControl, IViewFor
 
     }
     
-    private IViewLocator _viewLocator = AvaloniaLocator.Current.GetRequiredService<IViewLocator>();
+    private IViewLocator _viewLocator = Locator.Current.GetRequiredService<IViewLocator>();
 
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -44,7 +46,7 @@ public partial class AutoView : UserControl, IViewFor
             if (value is null) continue;
             var view = _viewLocator.ResolveView(value);
             // If viewModel is Found
-            if (view is IControl v and not AutoView)
+            if (view is Control v and not AutoView)
             {
                 //view.ViewModel = propViewModel;
                 v.Bind(DataContextProperty, new Binding { Source = DataContext, Path = prop.Name, Mode = BindingMode.TwoWay});
@@ -74,7 +76,7 @@ public partial class AutoView : UserControl, IViewFor
             }
             view = (IViewFor)Activator.CreateInstance(defaultType!)!;
             // 
-            if (view is not IControl vd) continue;
+            if (view is not Control vd) continue;
             
             var propViewModel = Activator.CreateInstance(view.GetType().GetProperty("ViewModel")!.PropertyType, prop, DataContext);
             view.ViewModel = propViewModel;

@@ -1,8 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.Services;
 using ReactiveUI;
+using Splat;
 
 namespace Cibbi.CFAM.Examples.SimpleWindow
 {
@@ -12,10 +14,10 @@ namespace Cibbi.CFAM.Examples.SimpleWindow
         {
             AvaloniaXamlLoader.Load(this);
             
-            AvaloniaLocator.CurrentMutable
-                .BindToSelfSingleton<DialogProvider>()
-                .Bind<IPagesProvider>().ToSingleton<PagesProvider>()
-                .Bind<IViewLocator>().ToSingleton<ViewLocator>();
+            Locator.CurrentMutable
+                .RegisterSingletonAnd<DialogProvider>()
+                .RegisterSingletonAnd<IPagesProvider, PagesProvider>()
+                .RegisterSingletonAnd<IViewLocator, ViewLocator>();
         }
 
         public override void OnFrameworkInitializationCompleted()
