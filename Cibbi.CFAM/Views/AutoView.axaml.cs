@@ -1,5 +1,6 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
@@ -40,7 +41,7 @@ public partial class AutoView : UserControl, IViewFor
         if (DataContext is null) return;
         var dataContextType = DataContext.GetType();
         if (dataContextType.IsValueType || dataContextType == typeof(PropertyValueViewModel<>)) return;
-        foreach (var prop in dataContextType.GetProperties())
+        foreach (var prop in dataContextType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
         {
             object? value = prop.GetValue(DataContext);
             if (value is null) continue;
