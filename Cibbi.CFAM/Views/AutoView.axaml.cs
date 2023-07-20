@@ -4,6 +4,7 @@ using System.Reflection;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Cibbi.CFAM.Attributes;
 using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.ViewModels;
 using Humanizer;
@@ -41,7 +42,10 @@ public partial class AutoView : UserControl, IViewFor
         if (DataContext is null) return;
         var dataContextType = DataContext.GetType();
         if (dataContextType.IsValueType || dataContextType == typeof(PropertyValueViewModel<>)) return;
-        foreach (var prop in dataContextType.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+        foreach (var prop in dataContextType.GetProperties()
+                     .Where(x => (x.GetFlags().Contains(BindingFlags.Public | BindingFlags.Instance) && x.DeclaringType == dataContextType &&
+                                    x.CustomAttributes.All(y => y.AttributeType != typeof(IgnorePropertyAttribute))) || 
+                                 x.CustomAttributes.Any(z => z.AttributeType == typeof(IncludePropertyAttribute))))
         {
             object? value = prop.GetValue(DataContext);
             if (value is null) continue;
