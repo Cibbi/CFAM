@@ -1,20 +1,21 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.ReactiveUI;
+using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
 
 namespace Cibbi.CFAM;
 
 
-public class ReactiveCoreWindow<TViewModel> : Window, IViewFor<TViewModel> where TViewModel : class
+public class ReactiveAppWindow<TViewModel> : AppWindow, IViewFor<TViewModel> where TViewModel : class
 {
     public static readonly StyledProperty<TViewModel?> ViewModelProperty = AvaloniaProperty
-        .Register<ReactiveCoreWindow<TViewModel>, TViewModel?>(nameof(ViewModel));
+        .Register<ReactiveAppWindow<TViewModel>, TViewModel?>(nameof(ViewModel));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ReactiveWindow{TViewModel}"/> class.
     /// </summary>
-    public ReactiveCoreWindow()
+    public ReactiveAppWindow()
     {
         // This WhenActivated block calls ViewModel's WhenActivated
         // block if the ViewModel implements IActivatableViewModel.

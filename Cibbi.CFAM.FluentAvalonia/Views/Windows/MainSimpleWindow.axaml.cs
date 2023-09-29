@@ -1,19 +1,12 @@
-﻿using System.Runtime.InteropServices;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Media.Immutable;
-using Cibbi.CFAM.Extensions;
-using Cibbi.CFAM.ViewModels.Windows;
-using FluentAvalonia.Styling;
-using FluentAvalonia.UI.Media;
+﻿using Cibbi.CFAM.Extensions;
+using Cibbi.CFAM.FluentAvalonia.ViewModels.Windows;
 using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
 using Splat;
 
-namespace Cibbi.CFAM.Views.Windows;
+namespace Cibbi.CFAM.FluentAvalonia.Views.Windows;
 
-public partial class MainSimpleWindow : ReactiveCoreWindow<MainSimpleWindowViewModel>
+public partial class MainSimpleWindow : ReactiveAppWindow<MainSimpleWindowViewModel>
 {
     public MainSimpleWindow()
     {

@@ -2,7 +2,7 @@
 using Avalonia.Data.Converters;
 using FluentAvalonia.UI.Controls;
 
-namespace Cibbi.CFAM.Converters;
+namespace Cibbi.CFAM.FluentAvalonia.Converters;
 
 public class PaneStatePositionMultiConverter : IMultiValueConverter
 {

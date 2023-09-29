@@ -1,8 +1,9 @@
 ﻿using System.Reactive.Linq;
+using Cibbi.CFAM.ViewModels;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 
-namespace Cibbi.CFAM.ViewModels;
+namespace Cibbi.CFAM.FluentAvalonia.ViewModels;
 
 public struct TaskDialogButtonData
 {

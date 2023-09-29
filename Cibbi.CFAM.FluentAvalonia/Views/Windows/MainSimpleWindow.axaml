@@ -4,18 +4,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
         xmlns:rxui="http://reactiveui.net"
-        xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
         xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
+        xmlns:windows1="clr-namespace:Cibbi.CFAM.FluentAvalonia.ViewModels.Windows"
+        xmlns:converters1="clr-namespace:Cibbi.CFAM.Converters;assembly=Cibbi.CFAM"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="Cibbi.CFAM.Views.Windows.MainSimpleWindow"
+        x:Class="Cibbi.CFAM.FluentAvalonia.Views.Windows.MainSimpleWindow"
         TransparencyLevelHint="None"
         BorderThickness="0"
         Width="{Binding WindowWidth}" 
         Height="{Binding WindowHeight}"
         Title="{Binding WindowName}"
-        WindowState="{Binding WindowState, Converter={x:Static converters:WindowStateConverter.Instance}}">
+        WindowState="{Binding WindowState, Converter={x:Static converters1:WindowStateConverter.Instance}}">
   <Design.DataContext>
-    <windows:MainSimpleWindowViewModel/>
+    <windows1:MainSimpleWindowViewModel/>
   </Design.DataContext>
   
   <Window.Styles>

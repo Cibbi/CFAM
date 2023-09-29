@@ -1,11 +1,12 @@
 ﻿using System.Reactive;
 using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.Services;
+using Cibbi.CFAM.ViewModels;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 using Splat;
 
-namespace Cibbi.CFAM.ViewModels.Windows
+namespace Cibbi.CFAM.FluentAvalonia.ViewModels.Windows
 {
     public partial class MainFluentWindowViewModel : RoutedWindowBaseViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using Cibbi.CFAM.Attributes;
+using Cibbi.CFAM.FluentAvalonia.ViewModels.Windows;
 using Cibbi.CFAM.ViewModels;
-using Cibbi.CFAM.ViewModels.Windows;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 

@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Cibbi.CFAM.Extensions;
+using Cibbi.CFAM.FluentAvalonia.Services;
 using Cibbi.CFAM.Services;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
@@ -18,10 +19,10 @@ namespace Cibbi.CFAM.Examples.FluentWindow
             IconsProvider iconsProvider = new IconsProvider()
                 .WithIconFactory("DocumentIcon", () => new SymbolIconSource { Symbol = Symbol.Document });
 
-            Locator.CurrentMutable.RegisterSingletonAnd<DialogProvider>()
+            Locator.CurrentMutable.RegisterSingleton<DialogProvider>()
                 .RegisterAnd<IPagesProvider, PagesProvider>()
                 .RegisterConstantAnd<IIconsProvider>(iconsProvider)
-                .RegisterSingletonAnd<IViewLocator, ViewLocator>();
+                .RegisterSingleton<IViewLocator, ViewLocator>();
         }
 
         public override void OnFrameworkInitializationCompleted()

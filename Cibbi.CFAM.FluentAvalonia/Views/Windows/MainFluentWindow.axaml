@@ -6,22 +6,24 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         xmlns:ui="using:FluentAvalonia.UI.Controls"
         xmlns:rxui="http://reactiveui.net"
-        xmlns:windows="clr-namespace:Cibbi.CFAM.ViewModels.Windows"
         xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
-        x:Class="Cibbi.CFAM.Views.Windows.MainFluentWindow"
+        xmlns:converters1="clr-namespace:Cibbi.CFAM.FluentAvalonia.Converters"
+        xmlns:windows1="clr-namespace:Cibbi.CFAM.FluentAvalonia.ViewModels.Windows"
+        xmlns:converters2="clr-namespace:Cibbi.CFAM.Converters;assembly=Cibbi.CFAM"
+        x:Class="Cibbi.CFAM.FluentAvalonia.Views.Windows.MainFluentWindow"
         TransparencyLevelHint="None"
         BorderThickness="0"
         Width="{Binding WindowWidth}" 
         Height="{Binding WindowHeight}"
         Title="{Binding WindowName}"
-        WindowState="{Binding WindowState, Converter={x:Static converters:WindowStateConverter.Instance}}">
+        WindowState="{Binding WindowState, Converter={x:Static converters2:WindowStateConverter.Instance}}">
 
 
     <Window.Resources>
-      <converters:PaneStatePositionMultiConverter x:Key="PaneConverter" />
+      <converters1:PaneStatePositionMultiConverter x:Key="PaneConverter" />
     </Window.Resources>
     <Design.DataContext>
-        <windows:MainFluentWindowViewModel/>
+        <windows1:MainFluentWindowViewModel/>
     </Design.DataContext>
     
     <Window.Styles>

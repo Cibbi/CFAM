@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM.Examples.SimpleW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM.Examples.FluentWindow", "Cibbi.CFAM.Examples.FluentWindow\Cibbi.CFAM.Examples.FluentWindow.csproj", "{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cibbi.CFAM.FluentAvalonia", "Cibbi.CFAM.FluentAvalonia\Cibbi.CFAM.FluentAvalonia.csproj", "{F84F4BC8-B8CB-4B4E-B5FB-11CB10CEA3E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8A5F06F-CF97-4C30-BABE-6C0446114F3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84F4BC8-B8CB-4B4E-B5FB-11CB10CEA3E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84F4BC8-B8CB-4B4E-B5FB-11CB10CEA3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84F4BC8-B8CB-4B4E-B5FB-11CB10CEA3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84F4BC8-B8CB-4B4E-B5FB-11CB10CEA3E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{048AB338-464D-452E-80B7-B0FA30E89C0F} = {A0ECCB05-43C3-4793-B592-E6047B3A809D}

@@ -1,7 +1,7 @@
-using Avalonia.Controls;
+using Cibbi.CFAM.Services;
 using FluentAvalonia.UI.Controls;
 
-namespace Cibbi.CFAM.Services;
+namespace Cibbi.CFAM.FluentAvalonia.Services;
 
 public class IconsProvider : IIconsProvider
 {

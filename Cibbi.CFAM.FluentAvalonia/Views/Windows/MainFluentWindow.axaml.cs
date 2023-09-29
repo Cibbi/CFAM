@@ -1,26 +1,20 @@
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Animation;
-using Avalonia.Controls;
-using Avalonia.Media;
-using Avalonia.Media.Immutable;
 using Avalonia.Styling;
 using Cibbi.CFAM.Extensions;
-using Cibbi.CFAM.Services;
+using Cibbi.CFAM.FluentAvalonia.Services;
+using Cibbi.CFAM.FluentAvalonia.ViewModels.Windows;
 using Cibbi.CFAM.ViewModels;
-using Cibbi.CFAM.ViewModels.Windows;
-using FluentAvalonia.Styling;
 using FluentAvalonia.UI.Controls;
-using FluentAvalonia.UI.Media;
 using FluentAvalonia.UI.Windowing;
 using ReactiveUI;
 using Splat;
 
-namespace Cibbi.CFAM.Views.Windows
+namespace Cibbi.CFAM.FluentAvalonia.Views.Windows
 {
-    public partial class MainFluentWindow : ReactiveCoreWindow<MainFluentWindowViewModel>
+    public partial class MainFluentWindow : ReactiveAppWindow<MainFluentWindowViewModel>
     {
         private IIconsProvider _provider = Locator.Current.GetRequiredService<IIconsProvider>();
         public MainFluentWindow()
@@ -28,17 +22,17 @@ namespace Cibbi.CFAM.Views.Windows
             this.WhenActivated(disposable =>
             {
                 if (ViewModel is null) return;
-                ViewModel.ObservableForProperty(x => x.MainListing)
+                ViewModel.ObservableForProperty<MainFluentWindowViewModel, string>(x => x.MainListing)
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(_ => RefreshNavigationItems())
                     .DisposeWith(disposable);
-                ViewModel.ObservableForProperty(x => x.OptionsListing)
+                ViewModel.ObservableForProperty<MainFluentWindowViewModel, string>(x => x.OptionsListing)
                     .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(_ => RefreshNavigationFooterItems())
                     .DisposeWith(disposable);
                 
                 ViewModel?.Router.NavigationChanged.Subscribe(_ => OnNavigationChanged()).DisposeWith(disposable);
-                ViewModel?.WhenAnyValue(x => x.IsPaneToggleVisible)
+                ViewModel?.WhenAnyValue<MainFluentWindowViewModel, bool>(x => x.IsPaneToggleVisible)
                     .Subscribe(_ => OnOptionPaneToggleChanged()).DisposeWith(disposable);
             });
             InitializeComponent();
@@ -58,34 +52,8 @@ namespace Cibbi.CFAM.Views.Windows
             if (TitleBar != null)
             {
                 TitleBar.ExtendsContentIntoTitleBar = true;
-
-               // TitleBar.LayoutMetricsChanged += OnApplicationTitleBarLayoutMetricsChanged;
-
-                /*if (this.FindControl<Grid>("TitleBarHost") is Grid g)
-                {
-                    SetTitleBar(g);
-                    g.Margin = new Thickness(0, 0, TitleBar.SystemOverlayRightInset, 0);
-                }*/
-            }
-/*
-            var thm = AvaloniaLocator.Current.GetService<FluentAvaloniaTheme>();
-            if(thm is not null)
-                thm.RequestedThemeChanged += OnRequestedThemeChanged;
-
-            // Enable Mica on Windows 11
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                if (IsWindows11 && thm is not null && thm.RequestedTheme != FluentAvaloniaTheme.HighContrastModeString)
-                {
-                    TransparencyBackgroundFallback = Brushes.Transparent;
-                    TransparencyLevelHint = WindowTransparencyLevel.Mica;
-
-                    TryEnableMicaEffect(thm);
-                }
             }
 
-            thm?.ForceWin32WindowToTheme(this);
-*/
             RefreshNavigationItems();
             RefreshNavigationFooterItems();
 
@@ -242,47 +210,5 @@ namespace Cibbi.CFAM.Views.Windows
                 }
             };
         }
-        /*private void OnApplicationTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            if (this.FindControl<Grid>("TitleBarHost") is Grid g)
-            {
-                g.Margin = new Thickness(0, 0, sender.SystemOverlayRightInset, 0);
-            }
-        }*/
-        
-        /*private void OnRequestedThemeChanged(FluentAvaloniaTheme sender, RequestedThemeChangedEventArgs args)
-        {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) return;
-            if (IsWindows11 && args.NewTheme != FluentAvaloniaTheme.HighContrastModeString)
-            {
-                TryEnableMicaEffect(sender);
-            }
-            else if (args.NewTheme == FluentAvaloniaTheme.HighContrastModeString)
-            {
-                // Clear the local value here, and let the normal styles take over for HighContrast theme
-                SetValue(BackgroundProperty, AvaloniaProperty.UnsetValue);
-            }
-        }*/
-        
-        /*private void TryEnableMicaEffect(FluentAvaloniaTheme thm)
-        {
-            if (thm.RequestedTheme == FluentAvaloniaTheme.DarkModeString)
-            {
-                Color2 color = this.TryFindResource("SolidBackgroundFillColorBase", out var value) && value is Color v ? v : new Color2(32, 32, 32);
-
-                color = color.LightenPercent(-0.8f);
-
-                Background = new ImmutableSolidColorBrush(color, 0.78);
-            }
-            else if (thm.RequestedTheme == FluentAvaloniaTheme.LightModeString)
-            {
-                // Similar effect here
-                Color2 color = this.TryFindResource("SolidBackgroundFillColorBase", out var value) && value is Color v ? v : new Color2(243, 243, 243);
-
-                color = color.LightenPercent(0.5f);
-
-                Background = new ImmutableSolidColorBrush(color, 0.9);
-            }
-        }*/
     }
 }

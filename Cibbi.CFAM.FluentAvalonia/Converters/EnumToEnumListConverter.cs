@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using Avalonia.Data.Converters;
 
-namespace Cibbi.CFAM.Converters;
+namespace Cibbi.CFAM.FluentAvalonia.Converters;
 
 public class EnumToEnumListConverter : IValueConverter
 {

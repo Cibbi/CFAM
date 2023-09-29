@@ -14,7 +14,7 @@ public static class LocatorExtensions
         return result;
     }
     
-    public static IMutableDependencyResolver RegisterLazySingletonAnd<TAs, T>(this IMutableDependencyResolver resolver, string? contract = null)
+    public static IMutableDependencyResolver RegisterLazySingleton<TAs, T>(this IMutableDependencyResolver resolver, string? contract = null)
         where T : TAs, new()
     {
         if (resolver is null)
@@ -27,7 +27,7 @@ public static class LocatorExtensions
         return resolver;
     }
     
-    public static IMutableDependencyResolver RegisterSingletonAnd<TAs, T>(this IMutableDependencyResolver resolver, string? contract = null)
+    public static IMutableDependencyResolver RegisterSingleton<TAs, T>(this IMutableDependencyResolver resolver, string? contract = null)
         where T : TAs, new()
     {
         if (resolver is null)
@@ -40,7 +40,7 @@ public static class LocatorExtensions
         return resolver;
     }
     
-    public static IMutableDependencyResolver RegisterSingletonAnd<T>(this IMutableDependencyResolver resolver, string? contract = null)
+    public static IMutableDependencyResolver RegisterSingleton<T>(this IMutableDependencyResolver resolver, string? contract = null)
         where T : new()
     {
         if (resolver is null)

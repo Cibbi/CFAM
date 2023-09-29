@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
 using Avalonia.Data.Converters;
+using Cibbi.CFAM.FluentAvalonia.ViewModels;
 using Cibbi.CFAM.ViewModels;
 using FluentAvalonia.UI.Controls;
 
-namespace Cibbi.CFAM.Converters;
+namespace Cibbi.CFAM.FluentAvalonia.Converters;
 
 public class TaskButtonsConverter : IValueConverter
 {

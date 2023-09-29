@@ -5,10 +5,11 @@
              xmlns:viewModels="clr-namespace:Cibbi.CFAM.Examples.FluentWindow.ViewModels"
              xmlns:converters="clr-namespace:Cibbi.CFAM.Converters;assembly=Cibbi.CFAM"
              xmlns:panel="clr-namespace:Cibbi.CFAM;assembly=Cibbi.CFAM"
+             xmlns:converters1="clr-namespace:Cibbi.CFAM.FluentAvalonia.Converters;assembly=Cibbi.CFAM.FluentAvalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Cibbi.CFAM.Examples.FluentWindow.Views.TestView">
   <UserControl.Resources>
-    <converters:EnumToEnumListConverter x:Key="EnumConverter" />
+    <converters1:EnumToEnumListConverter x:Key="EnumConverter" />
   </UserControl.Resources>
   <Design.DataContext>
     <viewModels:TestViewModel/>

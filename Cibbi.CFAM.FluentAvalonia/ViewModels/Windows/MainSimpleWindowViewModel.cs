@@ -1,6 +1,7 @@
-﻿using PropertyChanged.SourceGenerator;
+﻿using Cibbi.CFAM.ViewModels;
+using PropertyChanged.SourceGenerator;
 
-namespace Cibbi.CFAM.ViewModels.Windows;
+namespace Cibbi.CFAM.FluentAvalonia.ViewModels.Windows;
 
 public partial class MainSimpleWindowViewModel : WindowBaseViewModel
 {

@@ -1,17 +1,15 @@
-﻿using System.Linq.Expressions;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data;
-using Avalonia.VisualTree;
-using Cibbi.CFAM.Converters;
 using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.ViewModels;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
 using Splat;
+using TaskDialogViewModel = Cibbi.CFAM.FluentAvalonia.ViewModels.TaskDialogViewModel;
 
-namespace Cibbi.CFAM.Services;
+namespace Cibbi.CFAM.FluentAvalonia.Services;
 
 public enum DialogResult
 {
