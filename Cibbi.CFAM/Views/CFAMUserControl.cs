@@ -2,7 +2,6 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.ReactiveUI;
 using Cibbi.CFAM.ViewModels;
-using ReactiveUI;
 
 namespace Cibbi.CFAM.Views;
 
@@ -10,10 +9,7 @@ public class CFAMUserControl<T> : ReactiveUserControl<T> where T : ViewModelBase
 {
     public CFAMUserControl()
     {
-        this.WhenActivated(_ =>
-        {
-            SetRootViewModel();
-        });
+        SetRootViewModel();
     }
 
     private void SetRootViewModel()
