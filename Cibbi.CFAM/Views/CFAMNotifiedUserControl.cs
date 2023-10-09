@@ -45,7 +45,11 @@ public class CFAMNotifiedUserControl<T> : CFAMUserControl<T> where T : ViewModel
     {
         base.OnAttachedToVisualTree(e);
         
-        _notificationManager = new WindowNotificationManager(TopLevel.GetTopLevel(this));
+        _notificationManager = new WindowNotificationManager(TopLevel.GetTopLevel(this))
+        {
+            Position = CFAMSettings.NotificationPosition,
+            MaxItems = CFAMSettings.MaxNotifications,
+        };
     }
     
     private static NotificationType GetNotificationType(NotificationLevel level)
