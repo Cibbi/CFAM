@@ -6,7 +6,7 @@ using ReactiveUI;
 
 namespace Cibbi.CFAM.Views.Windows;
 
-public partial class MainWindow : Window, IActivatableView
+public partial class MainWindow : ReactiveCoreWindow<RoutedWindowBaseViewModel>
 {
     public MainWindow()
     {
