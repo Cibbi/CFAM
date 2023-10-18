@@ -1,9 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Cibbi.CFAM.Examples.FluentWindow.ViewModels;
 using Cibbi.CFAM.Extensions;
 using Cibbi.CFAM.FluentAvalonia.Services;
 using Cibbi.CFAM.Services;
+using Cibbi.CFAM.ViewModels.Mains;
+using Cibbi.CFAM.Views.Windows;
 using FluentAvalonia.UI.Controls;
 using ReactiveUI;
 using Splat;
@@ -29,7 +32,15 @@ namespace Cibbi.CFAM.Examples.FluentWindow
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = ViewLocator.MainWindow;
+                var context = new HeaderedMainViewModel("FluentAvalonia Example", ViewLocator.Current)
+                {
+                    WindowName = "Test",
+                };
+                desktop.MainWindow = new MainWindow()
+                {
+                    DataContext = context
+                };
+                context.Router.Navigate.Execute(new TestViewModel(context));
             }
 
             base.OnFrameworkInitializationCompleted();

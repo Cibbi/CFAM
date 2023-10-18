@@ -21,7 +21,7 @@ namespace Cibbi.CFAM.FluentAvalonia.ViewModels.Windows
 
         private readonly IPagesProvider _pagesProvider;
 
-        public MainFluentWindowViewModel()
+        public MainFluentWindowViewModel(string title, IViewLocator viewLocator) : base(title, viewLocator)
         {
             _pagesProvider =Locator.Current.GetRequiredService<IPagesProvider>();
 

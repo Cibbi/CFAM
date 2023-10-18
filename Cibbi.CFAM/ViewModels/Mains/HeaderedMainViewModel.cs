@@ -1,0 +1,52 @@
+﻿using System.Reactive;
+using PropertyChanged.SourceGenerator;
+using ReactiveUI;
+
+namespace Cibbi.CFAM.ViewModels.Mains;
+
+public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel
+{
+    public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
+    public HeaderedMainViewModel(string title, IViewLocator viewLocator) : base(title, viewLocator)
+    {
+        NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
+        HasCustomTitleBar = true;
+    }
+    
+    public void NavigateTo(Type routeType, bool reset = false)
+    {
+        IRoutableViewModel r;
+        var lastRouteOfType = Router.NavigationStack.LastOrDefault(x => x.GetType() == routeType);
+        if (lastRouteOfType is not null)
+        {
+            r = lastRouteOfType;
+        }
+        else
+        {
+            var route = (RoutableViewModel) Activator.CreateInstance(routeType, this)!;
+            r = route;
+        }
+            
+            
+        if(reset)
+            Router.NavigateAndReset.Execute(r).Subscribe();
+        else
+            Router.Navigate.Execute(r).Subscribe();
+    }
+        
+    public void NavigateTo(IRoutableViewModel route, bool reset = false)
+    {
+        var lastRouteOfType = Router.NavigationStack.LastOrDefault(x => x == route);
+        IRoutableViewModel r = lastRouteOfType ?? route;
+
+        if(reset)
+            Router.NavigateAndReset.Execute(r).Subscribe();
+        else
+            Router.Navigate.Execute(r).Subscribe();
+    }
+
+    public void NavigateBack()
+    {
+        Router.NavigateBack.Execute(Unit.Default).Subscribe();
+    }
+}

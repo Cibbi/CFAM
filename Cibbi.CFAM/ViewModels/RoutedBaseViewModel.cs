@@ -1,15 +1,10 @@
-using PropertyChanged.SourceGenerator;
-using ReactiveUI;
+﻿using ReactiveUI;
 
 namespace Cibbi.CFAM.ViewModels;
 
-public abstract class RoutedWindowBaseViewModel : WindowBaseViewModel, IScreen
+public class RoutedBaseViewModel : IScreen
 {
-    public RoutedWindowBaseViewModel(string title, IViewLocator viewLocator) : this(viewLocator)
-    {
-        WindowName = title;
-    }
-    public RoutedWindowBaseViewModel(IViewLocator viewLocator)
+    public RoutedBaseViewModel(IViewLocator viewLocator)
     {
         ViewLocator = viewLocator;
     }

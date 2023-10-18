@@ -1,18 +1,23 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:styling="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
-             x:Class="Cibbi.CFAM.Examples.FluentWindow.App">
+             x:Class="Cibbi.CFAM.Examples.FluentWindow.App"
+             RequestedThemeVariant="Default">
   <Application.Resources>
-      <!--<ResourceDictionary>
+      <ResourceDictionary>
           <ResourceDictionary.MergedDictionaries>
-              <ResourceInclude Source="avares://FAControlsGallery/Styling/Resources.axaml" />
+              <ResourceInclude Source="avares://Cibbi.CFAM/Resources/Icons.axaml"/>
           </ResourceDictionary.MergedDictionaries>
-      </ResourceDictionary>-->
-      
-      <Thickness x:Key="NavigationViewContentMargin">0,48,0,0</Thickness>
+      </ResourceDictionary>
   </Application.Resources>
-    <Application.Styles>
-        <styling:FluentAvaloniaTheme PreferSystemTheme="True" PreferUserAccentColor="True" />
-        <!--<StyleInclude Source="avares://FAControlsGallery/Styling/ControlsGalleryStyles.axaml" />-->
-    </Application.Styles>
+<Application.Styles>
+    <FluentTheme>
+        <FluentTheme.Palettes>
+            <!-- Palette for Light theme variant -->
+            <ColorPaletteResources x:Key="Light" RegionColor="White" ErrorText="Red" />
+            <!-- Palette for Dark theme variant -->
+            <ColorPaletteResources x:Key="Dark" RegionColor="#212121" ErrorText="Red" />
+        </FluentTheme.Palettes>
+    </FluentTheme>
+    <!--<StyleInclude Source="avares://FAControlsGallery/Styling/ControlsGalleryStyles.axaml" />-->
+</Application.Styles>
 </Application>
