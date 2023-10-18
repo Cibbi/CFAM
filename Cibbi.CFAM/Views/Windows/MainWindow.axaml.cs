@@ -6,11 +6,16 @@ using ReactiveUI;
 
 namespace Cibbi.CFAM.Views.Windows;
 
-public partial class MainWindow : ReactiveCoreWindow<RoutedWindowBaseViewModel>
+public partial class MainWindow : Window, IActivatableView
 {
-    public MainWindow()
+    public MainWindow(bool enableWindowDebug = false)
     {
         InitializeComponent();
+        
+        if (enableWindowDebug)
+        {
+            this.AttachDevTools();
+        }
         this.WhenActivated(disposables =>
         {
             if(DataContext is not RoutedWindowBaseViewModel viewModel) return;
