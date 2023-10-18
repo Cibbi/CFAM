@@ -14,8 +14,12 @@ public partial class MainWindow : Window, IActivatableView
         this.WhenActivated(disposables =>
         {
             if(DataContext is not RoutedWindowBaseViewModel viewModel) return;
-            ViewHost.ViewLocator = viewModel.ViewLocator;
-            ViewHost.ViewModel = viewModel;
+            
+            ViewHost.Children.Clear();
+            
+            if (viewModel.ViewLocator.ResolveView(viewModel) is not Control control) return;
+            control.DataContext = viewModel;
+            ViewHost.Children.Add(control);
         });
     }
 }

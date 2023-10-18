@@ -6,10 +6,9 @@
         xmlns:reactiveUi="http://reactiveui.net"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Cibbi.CFAM.Views.Windows.MainWindow"
-        Title="{Binding Title}"
+        Title="{Binding WindowName}"
         ExtendClientAreaToDecorationsHint="{Binding HasCustomTitleBar}"
         x:DataType="viewModels:RoutedWindowBaseViewModel">
         
-        <reactiveUi:ViewModelViewHost 
-            x:Name="ViewHost" />
+        <Panel x:Name="ViewHost" />
 </Window>
