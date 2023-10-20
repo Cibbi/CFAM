@@ -14,6 +14,7 @@
         <entry key="Cibbi.CFAM.FluentAvalonia/Views/Windows/MainSimpleWindow.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Resources/Icons.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Styles/ButtonStyles.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
+        <entry key="Cibbi.CFAM/Styles/CFAMStyles.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Styles/CheckBoxStyles.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/AutoView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Controls/BoolView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />

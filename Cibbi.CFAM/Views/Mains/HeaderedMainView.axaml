@@ -11,7 +11,7 @@
           Margin="{Binding $parent[Window].OffScreenMargin}">
         
        
-        <Button 
+        <Button
             Grid.Row="0"
             Grid.Column="0" 
             Name="BackButton"

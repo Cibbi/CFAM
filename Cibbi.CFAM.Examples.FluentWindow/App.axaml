@@ -2,22 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="Cibbi.CFAM.Examples.FluentWindow.App"
              RequestedThemeVariant="Default">
-  <Application.Resources>
-      <ResourceDictionary>
-          <ResourceDictionary.MergedDictionaries>
-              <ResourceInclude Source="avares://Cibbi.CFAM/Resources/Icons.axaml"/>
-          </ResourceDictionary.MergedDictionaries>
-      </ResourceDictionary>
-  </Application.Resources>
-<Application.Styles>
-    <FluentTheme>
-        <FluentTheme.Palettes>
-            <!-- Palette for Light theme variant -->
-            <ColorPaletteResources x:Key="Light" RegionColor="White" ErrorText="Red" />
-            <!-- Palette for Dark theme variant -->
-            <ColorPaletteResources x:Key="Dark" RegionColor="#212121" ErrorText="Red" />
-        </FluentTheme.Palettes>
-    </FluentTheme>
-    <!--<StyleInclude Source="avares://FAControlsGallery/Styling/ControlsGalleryStyles.axaml" />-->
-</Application.Styles>
+    <Application.Styles>
+        <FluentTheme>
+            <FluentTheme.Palettes>
+                <!-- Palette for Light theme variant -->
+                <ColorPaletteResources x:Key="Light" RegionColor="White" ErrorText="Red" />
+                <!-- Palette for Dark theme variant -->
+                <ColorPaletteResources x:Key="Dark" RegionColor="#212121" ErrorText="Red" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
+        <StyleInclude Source="avares://Cibbi.CFAM/Styles/CFAMStyles.axaml"></StyleInclude>
+    </Application.Styles>
 </Application>
