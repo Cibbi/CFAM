@@ -1,0 +1,25 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:routableDialogs="clr-namespace:Cibbi.CFAM.ViewModels.RoutableDialogs"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Cibbi.CFAM.Views.RoutableDialogs.ConfirmationDialogView"
+             x:DataType="routableDialogs:ConfirmationDialogViewModel">
+    <Grid RowDefinitions="*,Auto,4*">
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Title}" Margin="4" FontSize="26" FontWeight="Bold"></TextBlock>
+            <TextBlock Text="{Binding Message}" Margin="4"></TextBlock>
+            <WrapPanel Margin="0 20" Orientation="Horizontal"  HorizontalAlignment="Right">
+                <Button
+                    Command="{Binding CancelCommand}"
+                    Classes="decent accent" 
+                    Content="{Binding CancelText}"/>
+                <Button
+                    Command="{Binding ConfirmCommand}"
+                    Classes="decent"
+                    Content="{Binding ConfirmText}"/>
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
