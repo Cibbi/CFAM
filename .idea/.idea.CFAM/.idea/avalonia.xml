@@ -26,6 +26,7 @@
         <entry key="Cibbi.CFAM/Views/Controls/ShortView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Controls/StringView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Mains/HeaderedMainView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
+        <entry key="Cibbi.CFAM/Views/RoutableDialogs/ConfirmationDialogView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Windows/HeaderedMainView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Windows/MainFluentWindow.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />
         <entry key="Cibbi.CFAM/Views/Windows/MainRoutableWindow.axaml" value="Cibbi.CFAM.Examples.SimpleWindow/Cibbi.CFAM.Examples.SimpleWindow.csproj" />

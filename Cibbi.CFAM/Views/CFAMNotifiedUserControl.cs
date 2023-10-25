@@ -22,25 +22,34 @@ public class CFAMNotifiedUserControl<T> : CFAMUserControl<T> where T : ViewModel
             // ReSharper disable once SuspiciousTypeConversion.Global
             if (ViewModel is INotificationsSender sender)
             {
+                FlushPendingNotifications(sender);
+
                 sender.PendingNotifications.ToObservableChangeSet()
                     .SelectMany(x => x)
                     .Where(x => x.Reason == ListChangeReason.Add)
                     .Select(x => x.Item.Current)
                     .Subscribe(x =>
                     {
-                        
-                            _notificationManager?.Show(new Avalonia.Controls.Notifications.Notification(
-                                x.Title,
-                                x.Message,
-                                GetNotificationType(x.Type),
-                                x.Duration));
-
-                            sender.PendingNotifications.Remove(x);
+                        FlushPendingNotifications(sender);
                     }).DisposeWith(disposable);
             }
         });
     }
-    
+
+    private void FlushPendingNotifications(INotificationsSender sender)
+    {
+        foreach (var x in sender.PendingNotifications)
+        {
+            _notificationManager?.Show(new Avalonia.Controls.Notifications.Notification(
+                x.Title,
+                x.Message,
+                GetNotificationType(x.Type),
+                x.Duration));
+
+            sender.PendingNotifications.Remove(x);
+        }
+    }
+
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e)
     {
         base.OnAttachedToVisualTree(e);
