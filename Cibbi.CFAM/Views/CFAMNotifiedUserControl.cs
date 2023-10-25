@@ -30,13 +30,7 @@ public class CFAMNotifiedUserControl<T> : CFAMUserControl<T> where T : ViewModel
                     .Select(x => x.Item.Current)
                     .Subscribe(x =>
                     {
-                            _notificationManager?.Show(new Avalonia.Controls.Notifications.Notification(
-                                x.Title,
-                                x.Message,
-                                GetNotificationType(x.Type),
-                                x.Duration));
-
-                            sender.PendingNotifications.Remove(x);
+                        FlushPendingNotifications(sender);
                     }).DisposeWith(disposable);
             }
         });
@@ -45,14 +39,15 @@ public class CFAMNotifiedUserControl<T> : CFAMUserControl<T> where T : ViewModel
     private void FlushPendingNotifications(INotificationsSender sender)
     {
         if(sender.PendingNotifications.Count == 0) return;
-        foreach (var x in sender.PendingNotifications)
+        
+        foreach (var x in sender.PendingNotifications.ToList())
         {
             _notificationManager?.Show(new Avalonia.Controls.Notifications.Notification(
                 x.Title,
                 x.Message,
                 GetNotificationType(x.Type),
                 x.Duration));
-
+            
             sender.PendingNotifications.Remove(x);
         }
     }
