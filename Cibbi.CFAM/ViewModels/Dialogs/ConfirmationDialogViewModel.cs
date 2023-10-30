@@ -12,6 +12,8 @@ public class ConfirmationDialogViewModel : DialogViewModel
     public string ConfirmText { get; set; } = "Conferma";
     public string CancelText { get; set; } = "Annulla";
     
+    public bool CancelIsDefault { get; set; }
+    
     public CombinedReactiveCommand<Unit, Unit> ConfirmCommand { get; }
     public CombinedReactiveCommand<Unit, Unit> CancelCommand { get; }
     

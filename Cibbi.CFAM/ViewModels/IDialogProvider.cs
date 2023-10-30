@@ -21,18 +21,33 @@ public static class DialogProviderExtensions
         dialogProvider.DialogsOverlay.CurrentDialog = null;
     }
     
-    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default)
+    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, 
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default, bool cancelIsDefault = false)
     {
-        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel));
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            CancelIsDefault = cancelIsDefault
+        });
     }
     
-    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, string conFirmText, ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default)
+    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, string conFirmText,
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default, bool cancelIsDefault = false)
     {
-        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel){ConfirmText = conFirmText});
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            ConfirmText = conFirmText, 
+            CancelIsDefault = cancelIsDefault
+        });
     }
     
-    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, string conFirmText, string cancelText, ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default)
+    public static void ShowConfirmationDialog(this IDialogProvider dialogProvider, string title, string message, string conFirmText, string cancelText, 
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default, bool cancelIsDefault = false)
     {
-        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel){ConfirmText = conFirmText, CancelText = cancelText});
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            ConfirmText = conFirmText, 
+            CancelText = cancelText, 
+            CancelIsDefault = cancelIsDefault
+        });
     }
 }
