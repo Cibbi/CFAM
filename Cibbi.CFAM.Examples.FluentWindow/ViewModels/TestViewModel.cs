@@ -37,18 +37,8 @@ public partial class TestViewModel : RoutableViewModel
 
     private async Task ShowDialog()
     {
-        var taskDialog = _provider.GetTaskDialog();
-        taskDialog.Header = "test";
-        taskDialog.SubHeader = "test sub";
-        taskDialog.Content = "Description";
-
-
-        foreach (int index in Enumerable.Range(0, 100))
-        {
-            taskDialog.Progress = index;
-            await Task.Delay(100);
-        }
-        taskDialog.Close();
+        if (HostScreen is IDialogProvider dialogProvider)
+            dialogProvider.ShowConfirmationDialog("Test", "Test message", ReactiveCommand.Create(() => {}));
     }
 
     protected override void OnRootViewModelSet()

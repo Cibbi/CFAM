@@ -1,16 +1,22 @@
 ﻿using System.Reactive;
+using Cibbi.CFAM.ViewModels.Dialogs;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 
 namespace Cibbi.CFAM.ViewModels.Mains;
 
-public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel
+public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel, IOverlaysProvider, IDialogProvider
 {
+    public Dictionary<string, OverlayViewModel> Overlays { get; } = new();
+    
+    public DialogsOverlayViewModel DialogsOverlay { get; } = new();
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public HeaderedMainViewModel(string title, IViewLocator viewLocator) : base(title, viewLocator)
     {
         NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         HasCustomTitleBar = true;
+        
+        Overlays.Add("Dialogs", new OverlayViewModel(DialogsOverlay){ IsEnabled = true, ZIndex = 100});
     }
     
     public void NavigateTo(Type routeType, bool reset = false)
