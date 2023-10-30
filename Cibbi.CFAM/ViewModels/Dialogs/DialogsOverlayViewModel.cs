@@ -9,6 +9,8 @@ public partial class DialogsOverlayViewModel : ViewModelBase
     [Notify] private DialogViewModel? _currentDialog;
     [Notify] private bool _isDialogOpen;
     
+    private readonly object _lockObject = new();
+    
     public ReactiveCommand<Unit, Unit> CloseCurrentDialogCommand { get; }
 
     public DialogsOverlayViewModel()
@@ -18,19 +20,25 @@ public partial class DialogsOverlayViewModel : ViewModelBase
 
     private void OnCurrentDialogChanged()
     {
-        if(CurrentDialog is null)
+        lock (_lockObject)
         {
-            IsDialogOpen = false;
-            return;
-        }
+            if (CurrentDialog is null)
+            {
+                IsDialogOpen = false;
+                return;
+            }
 
-        CurrentDialog.CloseCommand = CloseCurrentDialogCommand;
-        IsDialogOpen = true;
+            CurrentDialog.CloseCommand = CloseCurrentDialogCommand;
+            IsDialogOpen = true;
+        }
     }
 
     private void CloseCurrentDialog()
     {
-        IsDialogOpen = false;
-        CurrentDialog = null;
+        lock (_lockObject)
+        {
+            IsDialogOpen = false;
+            _currentDialog = null;
+        }
     }
 }
