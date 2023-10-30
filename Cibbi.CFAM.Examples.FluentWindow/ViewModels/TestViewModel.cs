@@ -37,7 +37,7 @@ public partial class TestViewModel : RoutableViewModel
 
     private async Task ShowDialog()
     {
-        if (HostScreen is IDialogProvider dialogProvider)
+        if (RootViewModel is IDialogProvider dialogProvider)
             dialogProvider.ShowConfirmationDialog("Test", "Test message", ReactiveCommand.Create(() => {}));
     }
 
