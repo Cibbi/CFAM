@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Cibbi.CFAM.Views.Dialogs.DialogsOverlayView"
              x:DataType="dialogs:DialogsOverlayViewModel"
-             IsVisible="{Binding IsDialogOpen}">
+             IsVisible="{Binding CurrentDialog, Converter={x:Static ObjectConverters.IsNotNull}}">
     <Panel 
         x:DataType="dialogs:DialogsOverlayViewModel" 
         Background="#88000000">
