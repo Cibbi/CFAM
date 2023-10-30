@@ -20,25 +20,18 @@ public partial class DialogsOverlayViewModel : ViewModelBase
 
     private void OnCurrentDialogChanged()
     {
-        lock (_lockObject)
+        if (CurrentDialog is null)
         {
-            if (CurrentDialog is null)
-            {
-                IsDialogOpen = false;
-                return;
-            }
-
-            CurrentDialog.CloseCommand = CloseCurrentDialogCommand;
-            IsDialogOpen = true;
+            IsDialogOpen = false;
+            return;
         }
+
+        CurrentDialog.CloseCommand = CloseCurrentDialogCommand;
+        IsDialogOpen = true;
     }
 
     private void CloseCurrentDialog()
     {
-        lock (_lockObject)
-        {
-            IsDialogOpen = false;
-            _currentDialog = null;
-        }
+        _currentDialog = null;
     }
 }

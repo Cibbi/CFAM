@@ -21,8 +21,9 @@
             <reactiveUi:ViewModelViewHost 
                 Margin="10"
                 x:DataType="dialogs:DialogsOverlayViewModel" 
-                ViewModel="{Binding CurrentDialog}"
-                ViewLocator="{x:Static cfam:CFAMSettings.ViewLocator}"/>
+                ViewModel="{Binding CurrentDialog, Mode=OneWay}"
+                ViewLocator="{x:Static cfam:CFAMSettings.ViewLocator}">
+            </reactiveUi:ViewModelViewHost>
         </Border>
     </Panel>
 </UserControl>
