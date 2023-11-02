@@ -14,9 +14,15 @@ public partial class DialogsOverlayViewModel : ViewModelBase
     {
         CloseCurrentDialogCommand = ReactiveCommand.Create(CloseCurrentDialog);
     }
+    
+    public void OnCurrentDialogChanged()
+    {
+        if (CurrentDialog is not null)
+            CurrentDialog.CloseCommand = CloseCurrentDialogCommand;
+    }
 
     private void CloseCurrentDialog()
     {
-        _currentDialog = null;
+        CurrentDialog = null;
     }
 }
