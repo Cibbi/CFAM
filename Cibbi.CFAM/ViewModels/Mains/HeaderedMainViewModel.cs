@@ -1,13 +1,15 @@
-﻿using System.Reactive;
+﻿using System.Collections.ObjectModel;
+using System.Reactive;
 using Cibbi.CFAM.ViewModels.Dialogs;
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
 
 namespace Cibbi.CFAM.ViewModels.Mains;
 
-public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel, IOverlaysProvider, IDialogProvider
+public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel, IOverlaysProvider, IDialogProvider, INotificationsReceiver
 {
     public Dictionary<string, OverlayViewModel> Overlays { get; } = new();
+    public ObservableCollection<Notification> PendingNotifications { get; } = new();
     
     public DialogsOverlayViewModel DialogsOverlay { get; } = new();
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
