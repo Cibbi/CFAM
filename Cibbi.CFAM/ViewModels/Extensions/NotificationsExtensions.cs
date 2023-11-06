@@ -2,7 +2,7 @@
 
 public static class NotificationsExtensions
 {
-    public static bool SendNotification(this RoutedWindowBaseViewModel receiver, Notification notification)
+    public static bool SendNotification(this WindowBaseViewModel receiver, Notification notification)
     {
         if (receiver is not INotificationsReceiver notificationsReceiver)
             return false;
