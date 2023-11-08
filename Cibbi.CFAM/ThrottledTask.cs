@@ -1,5 +1,8 @@
-﻿namespace Cibbi.CFAM;
+﻿using JetBrains.Annotations;
 
+namespace Cibbi.CFAM;
+
+[PublicAPI]
 public class ThrottledTask
 {
     private readonly Action _action;
