@@ -12,15 +12,15 @@
             <TextBlock Text="{Binding Message}" Margin="4"></TextBlock>
             <WrapPanel Margin="0 20 0 0 " Orientation="Horizontal"  HorizontalAlignment="Right">
                 <Button
-                    x:Name="CancelButton"
-                    Command="{Binding CancelCommand}"
-                    Classes="decent" 
-                    Content="{Binding CancelText}"/>
-                <Button
                     x:Name="ConfirmButton"
                     Command="{Binding ConfirmCommand}"
                     Classes="decent"
                     Content="{Binding ConfirmText}"/>
+                <Button
+                    x:Name="CancelButton"
+                    Command="{Binding CancelCommand}"
+                    Classes="decent" 
+                    Content="{Binding CancelText}"/>
             </WrapPanel>
         </StackPanel>
     </Grid>
