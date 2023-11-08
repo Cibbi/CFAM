@@ -2,7 +2,7 @@
 
 namespace Cibbi.CFAM;
 
-public class RepeatedTask
+public class RepeatedTask : IDisposable
 {
     [PublicAPI]
     public bool IsRunning { get; set; }
@@ -74,5 +74,12 @@ public class RepeatedTask
                 }
             }
         }, _cancellationTokenSource.Token);
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _task.Dispose();
     }
 }
