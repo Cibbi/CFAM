@@ -79,8 +79,6 @@ public class RepeatedTask : IDisposable
     public void Dispose()
     {
         Stop();
-        _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
-        _task.Dispose();
     }
 }
