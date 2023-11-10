@@ -7,9 +7,11 @@ public class RepeatedTask : IDisposable
     [PublicAPI]
     public bool IsRunning { get; set; }
     
-    private readonly Action _action;
+    private readonly Action? _action;
+    private readonly Func<Task>? _asyncAction;
     private readonly TimeSpan _interval;
     private readonly bool _runOnStart;
+    private readonly bool _isAsync;
     private CancellationTokenSource? _cancellationTokenSource;
 
     private readonly object _lockObject = new();
@@ -21,6 +23,15 @@ public class RepeatedTask : IDisposable
         _action = action;
         _interval = interval;
         _runOnStart = runOnStart;
+        _isAsync = false;
+    }
+    
+    public RepeatedTask(Func<Task> action, TimeSpan interval, bool runOnStart = false)
+    {
+        _asyncAction = action;
+        _interval = interval;
+        _runOnStart = runOnStart;
+        _isAsync = true;
     }
 
     public Task Task => _task;
@@ -55,12 +66,21 @@ public class RepeatedTask : IDisposable
             try
             {
                 if (_runOnStart)
-                    _action();
+                {
+                    if (_isAsync)
+                        await (_asyncAction?.Invoke() ?? Task.CompletedTask);
+                    else
+                        _action!();
+                }
                 
                 while (!_cancellationTokenSource.IsCancellationRequested && IsRunning)
                 {
                     await Task.Delay(_interval, _cancellationTokenSource.Token);
-                    _action();
+                    
+                    if (_isAsync)
+                        await (_asyncAction?.Invoke() ?? Task.CompletedTask);
+                    else
+                        _action!();
                 }
             }
             catch (TaskCanceledException)
