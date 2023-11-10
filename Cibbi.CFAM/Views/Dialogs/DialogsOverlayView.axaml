@@ -12,12 +12,12 @@
     <Panel 
         x:DataType="dialogs:DialogsOverlayViewModel" 
         Background="#88000000">
-        <Border 
-            BorderThickness="1" 
-            CornerRadius="5"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center" BorderBrush="{DynamicResource ToolTipBorderBrush}"
-            Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
+        <Border d:DesignWidth="400" d:DesignHeight="300"
+                BorderThickness="1" 
+                CornerRadius="5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" BorderBrush="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
             <reactiveUi:ViewModelViewHost 
                 Margin="10"
                 x:DataType="dialogs:DialogsOverlayViewModel" 
