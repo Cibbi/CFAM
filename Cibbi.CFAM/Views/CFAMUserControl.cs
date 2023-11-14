@@ -26,8 +26,8 @@ public class CFAMUserControl<T> : ReactiveUserControl<T> where T : ViewModelBase
     
     private WindowBaseViewModel? GetRoot()
     {
-        return this
-            .GetLogicalAncestors()
+        return TopLevel.GetTopLevel(this)?
+            .GetLogicalChildren()
             .OfType<UserControl>()
             .FirstOrDefault(x => x.DataContext is WindowBaseViewModel)
             ?.DataContext as WindowBaseViewModel;
