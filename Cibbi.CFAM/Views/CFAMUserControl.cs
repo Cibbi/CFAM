@@ -14,20 +14,20 @@ public class CFAMUserControl<T> : ReactiveUserControl<T> where T : ViewModelBase
 {
     public CFAMUserControl()
     {
-        this.WhenActivated(disposable =>
-        {
-            if(ViewModel is null) return;
-            if(ViewModel.GetRootViewModel is not null) return;
-
-            ViewModel.GetRootViewModel += GetRoot;
-        });
     }
 
-    protected override void OnUnloaded(RoutedEventArgs e)
+    protected override void OnAttachedToLogicalTree(LogicalTreeAttachmentEventArgs e)
+    {
+        if(ViewModel is not null)
+            ViewModel.GetRootViewModel += GetRoot;
+        base.OnAttachedToLogicalTree(e);
+    }
+
+    protected override void OnDetachedFromLogicalTree(LogicalTreeAttachmentEventArgs e)
     {
         if(ViewModel is not null)
             ViewModel.GetRootViewModel -= GetRoot;
-        base.OnUnloaded(e);
+        base.OnDetachedFromLogicalTree(e);
     }
 
     private WindowBaseViewModel? GetRoot()
