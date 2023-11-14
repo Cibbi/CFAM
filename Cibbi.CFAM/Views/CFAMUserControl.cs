@@ -2,6 +2,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.ReactiveUI;
 using Cibbi.CFAM.ViewModels;
@@ -18,12 +19,17 @@ public class CFAMUserControl<T> : ReactiveUserControl<T> where T : ViewModelBase
             if(ViewModel is null) return;
             if(ViewModel.GetRootViewModel is not null) return;
 
-            ViewModel.GetRootViewModel = ReactiveCommand.Create(GetRoot);
-
-            ViewModel.GetRootViewModel.DisposeWith(disposable);
+            ViewModel.GetRootViewModel += GetRoot;
         });
     }
-    
+
+    protected override void OnUnloaded(RoutedEventArgs e)
+    {
+        if(ViewModel is not null)
+            ViewModel.GetRootViewModel -= GetRoot;
+        base.OnUnloaded(e);
+    }
+
     private WindowBaseViewModel? GetRoot()
     {
         return TopLevel.GetTopLevel(this)?

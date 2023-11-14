@@ -11,7 +11,7 @@ public abstract partial class ViewModelBase : ReactiveObject
 {
     private WindowBaseViewModel? _rootViewModel;
     
-    internal ReactiveCommand<Unit, WindowBaseViewModel?>? GetRootViewModel { get; set; }
+    internal Func<WindowBaseViewModel?>? GetRootViewModel { get; set; }
     
     public WindowBaseViewModel? RootViewModel
     {
@@ -19,7 +19,7 @@ public abstract partial class ViewModelBase : ReactiveObject
         {
             if (_rootViewModel is null && GetRootViewModel is not null)
             {
-                _rootViewModel = GetRootViewModel.Execute().Wait();
+                _rootViewModel = GetRootViewModel.Invoke();
             }
             return _rootViewModel;
         }
