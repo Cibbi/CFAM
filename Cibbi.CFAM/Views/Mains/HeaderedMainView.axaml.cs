@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
+using Avalonia.Input.Platform;
 using Cibbi.CFAM.ViewModels;
 using Cibbi.CFAM.ViewModels.Mains;
 using DynamicData;
@@ -13,6 +14,7 @@ namespace Cibbi.CFAM.Views.Mains;
 
 public partial class HeaderedMainView : CFAMUserControl<HeaderedMainViewModel>
 {
+    private IClipboard? _clipboard;
     private List<Control> _overlays = new();
     private WindowNotificationManager? _notificationManager;
     public HeaderedMainView()
@@ -79,6 +81,18 @@ public partial class HeaderedMainView : CFAMUserControl<HeaderedMainViewModel>
                         }
                     }).DisposeWith(disposable);
             }
+            
+            if (ViewModel is IClipboardProvider clipboardProvider)
+            {
+                clipboardProvider.Clipboard.WhenAnyValue(x => x.ClipboardContentToSend)
+                    .Where(x => !string.IsNullOrEmpty(x))
+                    .Subscribe(x =>
+                    {
+                        _clipboard?.SetTextAsync(x);
+                        clipboardProvider.Clipboard.ClipboardContentToSend = string.Empty;
+                    }).DisposeWith(disposable);
+                
+            }
         });
     }
     
@@ -91,8 +105,20 @@ public partial class HeaderedMainView : CFAMUserControl<HeaderedMainViewModel>
             Position = CFAMSettings.NotificationPosition,
             MaxItems = CFAMSettings.MaxNotifications,
         };
+        _clipboard = TopLevel.GetTopLevel(this)?.Clipboard;
+        
+        if(ViewModel is IClipboardProvider clipboardProvider && _clipboard is not null)
+            clipboardProvider.Clipboard.GetClipboard += _clipboard.GetTextAsync;
     }
-    
+
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e)
+    {
+        base.OnDetachedFromVisualTree(e);
+        
+        if(ViewModel is IClipboardProvider clipboardProvider && _clipboard is not null)
+            clipboardProvider.Clipboard.GetClipboard -= _clipboard.GetTextAsync;
+    }
+
     private void FlushPendingNotifications(INotificationsReceiver receiver)
     {
         if(receiver.PendingNotifications.Count == 0) return;
