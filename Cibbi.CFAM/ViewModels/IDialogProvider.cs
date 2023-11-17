@@ -51,3 +51,57 @@ public static class DialogProviderExtensions
         });
     }
 }
+
+public static class WindowBaseViewModelDialogProviderExtensions
+{
+    public static bool ShowDialog(this WindowBaseViewModel vm, DialogViewModel dialog)
+    {
+        if (vm is not IDialogProvider dialogProvider) return false;
+        dialogProvider.DialogsOverlay.CurrentDialog = dialog;
+        return true;
+    }
+
+    public static bool CloseDialog(this WindowBaseViewModel vm)
+    {
+        if (vm is not IDialogProvider dialogProvider) return false;
+        dialogProvider.DialogsOverlay.CurrentDialog = null;
+        return true;
+    }
+
+    public static bool ShowConfirmationDialog(this WindowBaseViewModel vm, string title, string message,
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit, Unit>? onCancel = default,
+        bool cancelIsDefault = false)
+    {
+        if (vm is not IDialogProvider dialogProvider) return false;
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            CancelIsDefault = cancelIsDefault
+        });
+        return true;
+    }
+
+    public static bool ShowConfirmationDialog(this WindowBaseViewModel vm, string title, string message, string confirmText,
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default, bool cancelIsDefault = false)
+    {
+        if (vm is not IDialogProvider dialogProvider) return false;
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            ConfirmText = confirmText, 
+            CancelIsDefault = cancelIsDefault
+        });
+        return true;
+    }
+
+    public static bool ShowConfirmationDialog(this WindowBaseViewModel vm, string title, string message, string confirmText, string cancelText, 
+        ReactiveCommand<Unit, Unit> onConfirm, ReactiveCommand<Unit,Unit>? onCancel = default, bool cancelIsDefault = false)
+    {
+        if (vm is not IDialogProvider dialogProvider) return false;
+        dialogProvider.ShowDialog(new ConfirmationDialogViewModel(title, message, onConfirm, onCancel)
+        {
+            ConfirmText = confirmText, 
+            CancelText = cancelText, 
+            CancelIsDefault = cancelIsDefault
+        });
+        return true;
+    }
+}
