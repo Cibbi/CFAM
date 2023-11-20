@@ -18,12 +18,15 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center" BorderBrush="{DynamicResource SystemControlBackgroundBaseLowBrush}"
                 Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
-            <reactiveUi:ViewModelViewHost 
+            <!--<reactiveUi:ViewModelViewHost 
                 Margin="10"
                 x:DataType="dialogs:DialogsOverlayViewModel" 
                 ViewModel="{Binding CurrentDialog, Mode=OneWay}"
                 ViewLocator="{x:Static cfam:CFAMSettings.ViewLocator}">
-            </reactiveUi:ViewModelViewHost>
+            </reactiveUi:ViewModelViewHost>-->
+            <Panel Name="DialogContent" Margin="10">
+                
+            </Panel>
         </Border>
     </Panel>
 </UserControl>
