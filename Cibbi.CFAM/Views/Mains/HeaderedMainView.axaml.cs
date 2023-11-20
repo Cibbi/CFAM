@@ -57,6 +57,7 @@ public partial class HeaderedMainView : CFAMUserControl<HeaderedMainViewModel>
             {
                 provider.Overlays.AsObservableChangeSet()
                     .Where(x => x.Adds > 0 || x.Removes > 0)
+                    .ObserveOn(RxApp.MainThreadScheduler)
                     .Subscribe(x =>
                     {
                         //MainGrid.Children.Remove(Overlay);
