@@ -3,11 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mains="clr-namespace:Cibbi.CFAM.ViewModels.Mains"
+             xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
+             xmlns:cfam="clr-namespace:Cibbi.CFAM"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Cibbi.CFAM.Views.Mains.HeaderedMainView"
              x:DataType="mains:HeaderedMainViewModel">
-    <Grid x:Name="MainGrid"
-        RowDefinitions="Auto, *" ColumnDefinitions="Auto, *"
+    <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <Grid x:Name="MainGrid" 
+          Width="{Binding $parent[UserControl].Bounds.Width, Converter={x:Static converters:WidthToScaledWidthConverter.Instance}, ConverterParameter={x:Static cfam:CFAMSettings.UIScaling}}"
+          Height="{Binding $parent[UserControl].Bounds.Height, Converter={x:Static converters:WidthToScaledWidthConverter.Instance}, ConverterParameter={x:Static cfam:CFAMSettings.UIScaling}}"
+          RowDefinitions="Auto, *" ColumnDefinitions="Auto, *"
           Margin="{Binding $parent[Window].OffScreenMargin}">
         <Button
             Grid.Row="0"
@@ -51,4 +56,5 @@
         </Panel>     
         <!--<Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="Overlay" Background="Transparent"/>-->
     </Grid>
+    </Viewbox>
 </UserControl>
