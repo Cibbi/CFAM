@@ -13,21 +13,5 @@ public partial class DialogsOverlayView : CFAMUserControl<DialogsOverlayViewMode
     public DialogsOverlayView()
     {
         InitializeComponent();
-        this.WhenActivated((CompositeDisposable disposable) =>
-        {
-            if(ViewModel is null) return;
-            
-            ViewModel.WhenAnyValue(x => x.CurrentDialog)
-                .ObserveOn(RxApp.MainThreadScheduler)
-                .Subscribe(x =>
-                {
-                    DialogContent.Children.Clear();
-                    if (x is null) return;
-
-                    if (CFAMSettings.ViewLocator.ResolveView(x) is not Control control) return;
-                    control.DataContext = x;
-                    DialogContent.Children.Add(control);
-                }).DisposeWith(disposable);
-        });
     }
 }

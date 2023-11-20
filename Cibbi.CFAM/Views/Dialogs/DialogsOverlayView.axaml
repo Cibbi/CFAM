@@ -5,6 +5,7 @@
              xmlns:dialogs="clr-namespace:Cibbi.CFAM.ViewModels.Dialogs"
              xmlns:reactiveUi="http://reactiveui.net"
              xmlns:cfam="clr-namespace:Cibbi.CFAM"
+             xmlns:behaviors="clr-namespace:Cibbi.CFAM.Behaviors"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Cibbi.CFAM.Views.Dialogs.DialogsOverlayView"
              x:DataType="dialogs:DialogsOverlayViewModel"
@@ -24,8 +25,12 @@
                 ViewModel="{Binding CurrentDialog, Mode=OneWay}"
                 ViewLocator="{x:Static cfam:CFAMSettings.ViewLocator}">
             </reactiveUi:ViewModelViewHost>-->
-            <Panel Name="DialogContent" Margin="10">
-                
+            <Panel Margin="10">
+                <Interaction.Behaviors>
+                    <behaviors:DynamicChildBehavior
+                        x:DataType="dialogs:DialogsOverlayViewModel" 
+                        Content="{Binding CurrentDialog, Mode=OneWay}"/>
+                </Interaction.Behaviors>
             </Panel>
         </Border>
     </Panel>
