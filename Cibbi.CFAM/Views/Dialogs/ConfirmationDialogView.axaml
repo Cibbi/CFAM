@@ -8,8 +8,8 @@
              x:DataType="dialogs:ConfirmationDialogViewModel">
     <Grid RowDefinitions="*,Auto,4*">
         <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Title}" Margin="4" FontSize="26" FontWeight="Bold"></TextBlock>
-            <TextBlock Text="{Binding Message}" Margin="4"></TextBlock>
+            <TextBlock Text="{Binding Title}" Margin="4" FontSize="26" FontWeight="Bold" TextWrapping="Wrap"></TextBlock>
+            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Margin="4"></TextBlock>
             <WrapPanel Margin="0 20 0 0 " Orientation="Horizontal"  HorizontalAlignment="Right">
                 <Button
                     x:Name="ConfirmButton"
