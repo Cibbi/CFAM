@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls.Notifications;
+using Cibbi.CFAM.Services;
 using Cibbi.CFAM.ViewModels;
-using ReactiveUI;
 
 namespace Cibbi.CFAM;
 

@@ -46,7 +46,7 @@ namespace Cibbi.CFAM.Behaviors
 
         private void UpdateChild(object? newValue)
         {
-            if (AssociatedObject == null || newValue == null || CFAMSettings.ViewLocator.ResolveView(newValue) is not Control control)
+            if (AssociatedObject == null || newValue == null || CFAMSettings.ViewLocator.FindView(newValue) is not Control control)
             {
                 AssociatedObject?.Children.Clear();
             }
