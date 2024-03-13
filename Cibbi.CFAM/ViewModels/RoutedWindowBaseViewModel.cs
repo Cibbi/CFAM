@@ -1,5 +1,7 @@
 using PropertyChanged.SourceGenerator;
 using ReactiveUI;
+using IViewLocator = Cibbi.CFAM.Services.IViewLocator;
+
 
 namespace Cibbi.CFAM.ViewModels;
 

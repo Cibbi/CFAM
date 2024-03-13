@@ -1,6 +1,5 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Cibbi.CFAM.ViewModels;
 using ReactiveUI;
 
@@ -22,7 +21,7 @@ public partial class MainWindow : Window, IActivatableView
             
             ViewHost.Children.Clear();
             
-            if (viewModel.ViewLocator.ResolveView(viewModel) is not Control control) return;
+            if (viewModel.ViewLocator.FindView(viewModel) is not Control control) return;
             control.DataContext = viewModel;
             ViewHost.Children.Add(control);
         });

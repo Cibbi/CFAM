@@ -28,7 +28,7 @@ public partial class HeaderedMainView : CFAMUserControl<HeaderedMainViewModel>
                 var x = ViewModel.Router.GetCurrentViewModel();
                 if(x is null) return;
                 MainContent.Children.Clear();
-                if (ViewModel.ViewLocator.ResolveView(x) is not Control control) return;
+                if (ViewModel.ViewLocator.FindView(x) is not { } control) return;
                 control.DataContext = x;
                 MainContent.Children.Add(control);
                 

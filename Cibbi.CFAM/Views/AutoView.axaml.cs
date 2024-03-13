@@ -10,6 +10,7 @@ using Cibbi.CFAM.ViewModels;
 using Humanizer;
 using ReactiveUI;
 using Splat;
+using IViewLocator = Cibbi.CFAM.Services.IViewLocator;
 
 namespace Cibbi.CFAM.Views;
 
@@ -49,7 +50,7 @@ public partial class AutoView : UserControl, IViewFor
         {
             object? value = prop.GetValue(DataContext);
             if (value is null) continue;
-            var view = _viewLocator.ResolveView(value);
+            var view = _viewLocator.FindView(value);
             // If viewModel is Found
             if (view is Control v and not AutoView)
             {
@@ -79,12 +80,12 @@ public partial class AutoView : UserControl, IViewFor
                 
                 continue;
             }
-            view = (IViewFor)Activator.CreateInstance(defaultType!)!;
+            view = (Control)Activator.CreateInstance(defaultType!)!;
             // 
             if (view is not Control vd) continue;
             
             var propViewModel = Activator.CreateInstance(view.GetType().GetProperty("ViewModel")!.PropertyType, prop, DataContext);
-            view.ViewModel = propViewModel;
+            view.DataContext = propViewModel;
             //v.Bind(DataContextProperty, new Binding { Source = propViewModel, Path = prop.Name, Mode = BindingMode.TwoWay});
             ContentHost.Children.Add(vd);
 
