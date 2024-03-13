@@ -1,4 +1,5 @@
-﻿using Cibbi.CFAM.Views;
+﻿using Avalonia.Controls;
+using Cibbi.CFAM.Views;
 using ReactiveUI;
 
 namespace Cibbi.CFAM;
@@ -16,7 +17,7 @@ public class BaseViewLocator : IViewLocator
         string? name = vmType.AssemblyQualifiedName!.Replace("ViewModel", "View");
         if(name is null) throw new ArgumentOutOfRangeException(nameof(viewModel));
         var type = Type.GetType(name);
-        if (type is null || !type.IsAssignableTo(typeof(IViewFor)))
+        if (type is null || !type.IsAssignableTo(typeof(ContentControl)))
         {
             _viewModelToViewMapping.Add(vmType, typeof(AutoView));
             return (IViewFor)Activator.CreateInstance(typeof(AutoView))!;
