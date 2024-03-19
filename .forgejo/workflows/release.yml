@@ -31,7 +31,7 @@ jobs:
           
       - name: Publish
         run: |
-          dotnet pack /p:VersionSuffix=-${{ steps.set_version.outputs.release_time }} --configuration Release --no-build --output nupkgs
+          dotnet pack /p:VersionSuffix=${{ steps.set_version.outputs.release_time }} --configuration Release --no-build --output nupkgs
           
       - name: Config Nuget Source
         run: |
