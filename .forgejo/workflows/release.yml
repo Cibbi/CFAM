@@ -1,0 +1,37 @@
+name: nuget build beta
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: docker
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+    
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        
+      - name: Set version from branch name
+        id: set_version
+        run: |
+          lowercase=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          echo "image_name=$lowercase" >> $GITHUB_OUTPUT
+          echo "release_time=$(date +%Y%m%d%H%M%S)" >> $GITHUB_OUTPUT
+          
+      - name: Build
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
+          
+      - name: Publish
+        run: |
+          dotnet pack /p:VersionSuffix=-${{ steps.set_version.outputs.release_time }} --configuration Release --no-build --output nupkgs
+          
+      - name: Config Nuget Source
+        run: |
+          dotnet nuget add source https://forgejo.cibbi.duckdns.org/api/packages/cibbi/nuget/index.json --name forgejo
+          dotnet nuget push nupkgs/*.nupkg --source forgejo  --api-key GITHUB_TOKEN          
