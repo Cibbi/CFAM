@@ -36,4 +36,4 @@ jobs:
       - name: Config Nuget Source
         run: |
           dotnet nuget add source https://forgejo.cibbi.duckdns.org/api/packages/cibbi/nuget/index.json --name forgejo
-          dotnet nuget push nupkgs/*.nupkg --source forgejo  --api-key ${{ env.GITHUB_TOKEN }}           
+          dotnet nuget push nupkgs/*.nupkg --source forgejo  --api-key ${{ secrets.FORGEJO_TOKEN }}           
