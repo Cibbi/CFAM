@@ -24,7 +24,7 @@ public class OverlaysHandler : WindowServiceHandler
         set => SetValue(TargetPanelProperty, value);
     }
 
-    public string? Name { get; private set; }
+    public string? Name { get; set; }
     
     private readonly Overlays _overlays = new();
     private readonly List<Control> _currentOverlays = [];
