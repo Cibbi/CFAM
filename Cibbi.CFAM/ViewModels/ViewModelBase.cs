@@ -6,6 +6,7 @@ namespace Cibbi.CFAM.ViewModels;
 
 public abstract partial class ViewModelBase : ReactiveObject
 {
+    
     // Used as a target for the NotifyPropertyChanged generator
     protected virtual void NotifyPropertyChanged(string? propertyName = null)
     {

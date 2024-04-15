@@ -13,6 +13,8 @@ public interface IWindowService
 public class WindowServiceProvider
 {
     private List<IWindowService> _services = new ();
+    
+    public event EventHandler<AddedServiceEventArgs>? ServiceAdded;
 
     public T? GetService<T>() where T : class, IWindowService
     {
@@ -26,6 +28,20 @@ public class WindowServiceProvider
             return false;
         }
         _services.Add(service);
+        ServiceAdded?.Invoke(this, new AddedServiceEventArgs(_services, service));
         return true;
     }
+}
+
+public class AddedServiceEventArgs
+{
+    public List<IWindowService> Services { get; set; }
+    public IWindowService Added { get; set; }
+    
+    public AddedServiceEventArgs(List<IWindowService> services, IWindowService added)
+    {
+        Services = services;
+        Added = added;
+    }
+    
 }
