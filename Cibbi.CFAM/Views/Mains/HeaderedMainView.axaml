@@ -5,9 +5,17 @@
              xmlns:mains="clr-namespace:Cibbi.CFAM.ViewModels.Mains"
              xmlns:converters="clr-namespace:Cibbi.CFAM.Converters"
              xmlns:cfam="clr-namespace:Cibbi.CFAM"
+             xmlns:windowHandlers="clr-namespace:Cibbi.CFAM.Behaviors.WindowHandlers"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="Cibbi.CFAM.Views.Mains.HeaderedMainView"
              x:DataType="mains:HeaderedMainViewModel">
+    <Interaction.Behaviors>
+        <windowHandlers:ClipboardHandler />
+        <windowHandlers:NotificationHandler />
+        <windowHandlers:StorageHandler />
+        <windowHandlers:OverlaysHandler x:Name="OverlaysHandler" TargetPanel="{Binding ElementName=OverlayLayer}" />
+        <windowHandlers:DialogsHandler OverlaysHandler="{Binding ElementName=OverlaysHandler}" />
+    </Interaction.Behaviors>
     <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid x:Name="MainGrid" 
           Width="{Binding $parent[UserControl].Bounds.Width, Converter={x:Static converters:WidthToScaledWidthConverter.Instance}, ConverterParameter={x:Static cfam:CFAMSettings.UIScaling}}"
@@ -51,9 +59,12 @@
             Padding="0 11"
             FontWeight="Medium">
         </TextBlock>
+        
         <Panel Name="MainContent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6">
-            
         </Panel>     
+        
+        <Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="OverlayLayer">
+        </Panel>
         <!--<Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="Overlay" Background="Transparent"/>-->
     </Grid>
     </Viewbox>

@@ -1,4 +1,4 @@
-namespace Cibbi.CFAM.ViewModels;
+namespace Cibbi.CFAM;
 
 public class Notification
 {
@@ -15,7 +15,6 @@ public class Notification
         Duration = duration;
     }
     
-    public Notification(string title, string message, NotificationLevel type) : this(title, message, type, TimeSpan.FromSeconds(5)) { }
-    public Notification(string title, string message) : this(title, message, NotificationLevel.Information) { }
+    public Notification(string title, string message, NotificationLevel type = NotificationLevel.Information) : this(title, message, type, TimeSpan.FromSeconds(5)) { }
     public Notification(string message) : this(string.Empty, message) { }
 }

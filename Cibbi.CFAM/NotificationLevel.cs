@@ -1,4 +1,4 @@
-namespace Cibbi.CFAM.ViewModels;
+namespace Cibbi.CFAM;
 
 public enum NotificationLevel
 {
