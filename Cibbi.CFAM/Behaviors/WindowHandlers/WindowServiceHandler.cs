@@ -11,22 +11,27 @@ public abstract class WindowServiceHandler : Behavior<Visual>
     protected override void OnAttachedToVisualTree()
     {
         base.OnAttachedToVisualTree();
+        CheckDataContext();
         AssociatedObject!.DataContextChanged += AssociatedObjectOnDataContextChanged;
     }
     
     protected override void OnDetachedFromVisualTree()
     {
         base.OnDetachedFromVisualTree();
+        CheckDataContext();
         AssociatedObject!.DataContextChanged -= AssociatedObjectOnDataContextChanged;
     }
 
     private void AssociatedObjectOnDataContextChanged(object? sender, EventArgs e)
     {
-        if (AssociatedObject!.DataContext is IWindowServiceProvider provider)
-        {
-            Provider = provider.WindowServices;
-            OnDataContextChanged();
-        }
+        CheckDataContext();
+    }
+
+    private void CheckDataContext()
+    {
+        if (AssociatedObject!.DataContext is not IWindowServiceProvider provider) return;
+        Provider = provider.WindowServices;
+        OnDataContextChanged();
     }
 
     protected virtual void OnDataContextChanged(){}
