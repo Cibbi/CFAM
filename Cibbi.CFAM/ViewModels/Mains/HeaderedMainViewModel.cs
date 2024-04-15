@@ -6,17 +6,17 @@ using IViewLocator = Cibbi.CFAM.Services.IViewLocator;
 
 namespace Cibbi.CFAM.ViewModels.Mains;
 
-public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel, IWindowServiceProvider, INotificationsReceiver
+public partial class HeaderedMainViewModel : RoutedWindowBaseViewModel, IWindowServiceProvider
 {
     public WindowServiceProvider WindowServices { get; set; }
-    public ObservableCollection<Notification> PendingNotifications { get; } = new();
-    
     public ReactiveCommand<Unit, Unit> NavigateBackCommand { get; }
     public HeaderedMainViewModel(string title, IViewLocator viewLocator) : base(title, viewLocator)
     {
         NavigateBackCommand = ReactiveCommand.Create(NavigateBack);
         HasCustomTitleBar = true;
-        
+
+        WindowServices = new WindowServiceProvider();
+
         //Overlays.Add("Dialogs", new OverlayViewModel(DialogsOverlay){ IsEnabled = true, ZIndex = 100});
     }
     
