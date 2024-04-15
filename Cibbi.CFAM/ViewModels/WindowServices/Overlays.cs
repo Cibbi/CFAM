@@ -2,7 +2,7 @@
 
 public class Overlays : IWindowService
 {
-    internal Dictionary<string, OverlayViewModel> _items { get; }
+    internal Dictionary<string, OverlayViewModel> _items { get; } = [];
     
     public OverlayViewModel? GetOverlay(string key)
     {
