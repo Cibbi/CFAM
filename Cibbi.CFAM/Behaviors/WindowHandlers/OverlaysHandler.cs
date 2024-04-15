@@ -14,12 +14,17 @@ public class OverlaysHandler : WindowServiceHandler
 {
     public static readonly StyledProperty<Panel> TargetPanelProperty =
         AvaloniaProperty.Register<OverlaysHandler, Panel>(nameof(Panel));
+    
+    public static readonly DirectProperty<OverlaysHandler, string?> NameProperty =
+        AvaloniaProperty.RegisterDirect<OverlaysHandler, string?>(nameof(Name), o => o.Name, (o, v) => o.Name = v);
 
     public Panel TargetPanel
     {
         get => GetValue(TargetPanelProperty);
         set => SetValue(TargetPanelProperty, value);
     }
+
+    public string? Name { get; private set; }
     
     private readonly Overlays _overlays = new();
     private readonly List<Control> _currentOverlays = [];
