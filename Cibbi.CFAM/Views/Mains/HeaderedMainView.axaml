@@ -60,7 +60,7 @@
             FontWeight="Medium">
         </TextBlock>
         
-        <Panel Name="MainContent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6">
+        <Panel Name="MainContent" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
         </Panel>     
         
         <Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="OverlayLayer">
