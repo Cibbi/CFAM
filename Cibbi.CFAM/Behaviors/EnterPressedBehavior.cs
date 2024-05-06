@@ -4,7 +4,7 @@ using Avalonia.Xaml.Interactivity;
 
 namespace Cibbi.CFAM.Behaviors;
 
-public class EnterBehavior : Trigger<TextBox>
+public class EnterPressedBehavior : Trigger<TextBox>
 {
     protected override void OnAttachedToVisualTree()
     {
