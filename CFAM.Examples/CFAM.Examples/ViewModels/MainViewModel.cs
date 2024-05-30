@@ -11,4 +11,6 @@ public class MainViewModel : RoutableViewModel, IActivatableViewModel
 
     public override string UrlPathSegment { get; } = "Home";
     public ViewModelActivator Activator { get; } = new();
+
+    public ExampleAutoObject ExampleAutoObject { get; set; } = new();
 }

@@ -25,6 +25,7 @@ public partial class App : Application
         var context = new HeaderedMainViewModel("CFAM Example", viewLocator);
 
         Locator.CurrentMutable.RegisterConstant<IViewLocator>(viewLocator);
+        Locator.CurrentMutable.RegisterSingleton<IDefaultViewModelMappings, DefaultViewModelMappings>();
         
 #if DEBUG
         bool debug = true;

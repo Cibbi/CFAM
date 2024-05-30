@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Data;
 using CFAM.Attributes.AutoControl;
 using CFAM.Extensions;
+using CFAM.ViewModels;
 using Humanizer;
 using ReactiveUI;
 using Splat;
@@ -33,6 +34,7 @@ public partial class AutoView : UserControl, IViewFor
     }
     
     private readonly IViewLocator _viewLocator = Locator.Current.GetRequiredService<IViewLocator>();
+    private readonly IDefaultViewModelMappings _defaultMappings = Locator.Current.GetRequiredService<IDefaultViewModelMappings>();
 
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -43,14 +45,15 @@ public partial class AutoView : UserControl, IViewFor
         if (DataContext is null) return;
         var dataContextType = DataContext.GetType();
         if (dataContextType.IsValueType) return;
-        foreach (var prop in dataContextType.GetProperties()
-                     .Where(x => (x.GetFlags().Contains(BindingFlags.Public | BindingFlags.Instance) && x.DeclaringType == dataContextType &&
-                                    x.CustomAttributes.All(y => y.AttributeType != typeof(IgnorePropertyAttribute))) || 
+        foreach (var prop in dataContextType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                     .Where(x => (
+                                     x.GetFlags().Contains(BindingFlags.Public | BindingFlags.Instance) && 
+                                     x.DeclaringType == dataContextType &&
+                                     x.CustomAttributes.All(y => y.AttributeType != typeof(IgnorePropertyAttribute))) || 
                                  x.CustomAttributes.Any(z => z.AttributeType == typeof(IncludePropertyAttribute))))
         {
-            object? value = prop.GetValue(DataContext);
-            if (value is null) continue;
-            var view = _viewLocator.FindView(value);
+            Type valueType = prop.PropertyType;
+            var view = _viewLocator.FindView(valueType);
             // If viewModel is Found
             if (view is { } v and not AutoView)
             {
@@ -63,7 +66,7 @@ public partial class AutoView : UserControl, IViewFor
             
 
             // If viewmodel is not one of the default mappings try to make an AutoView of the property
-            if (!DefaultViewModelMappings.Instance.TryGetValue(value!.GetType(), out var defaultType))
+            if (!_defaultMappings.TryGetMappingFor(valueType, out var defaultType))
             {
                 Expander ex = new Expander(){Margin = new Thickness(6), Header = new Label{Content = prop.Name.Humanize(LetterCasing.Title)}};
                 //ContentHost.Children.Add(new Label{Content = prop.Name.Humanize(LetterCasing.Title)});
@@ -72,7 +75,7 @@ public partial class AutoView : UserControl, IViewFor
                     .Subscribe(x =>
                     {
                         //if value is an IEnumerable, treat it as a list of items
-                        if (value.GetType().IsAssignableTo(typeof(IEnumerable)))
+                        if (valueType.IsAssignableTo(typeof(IEnumerable)))
                         {
                             var av = new AutoView();
                             av.Bind(DataContextProperty,
@@ -96,8 +99,9 @@ public partial class AutoView : UserControl, IViewFor
             view = (Control)Activator.CreateInstance(defaultType!)!;
             // 
             if (view is not { } vd) continue;
-            
-            var propViewModel = Activator.CreateInstance(view.GetType().GetProperty("ViewModel")!.PropertyType, prop, DataContext);
+            Type typeToInstantiate = typeof(PropertyValueViewModel<>);
+            Type specificType = typeToInstantiate.MakeGenericType(prop.PropertyType);
+            var propViewModel = Activator.CreateInstance(specificType, prop, DataContext);
             view.DataContext = propViewModel;
             //v.Bind(DataContextProperty, new Binding { Source = propViewModel, Path = prop.Name, Mode = BindingMode.TwoWay});
             ContentHost.Children.Add(vd);

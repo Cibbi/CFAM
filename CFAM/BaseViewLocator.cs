@@ -13,10 +13,17 @@ public class BaseViewLocator : IViewLocator
     {
         var vmType = viewModel?.GetType();
         if (vmType is null) throw new ArgumentNullException(nameof(viewModel));
+        return FindView(vmType);
+
+    }
+
+    public virtual Control FindView(Type vmType)
+    {
+        if (vmType is null) throw new ArgumentNullException(nameof(vmType));
         if(_viewModelToViewMapping.TryGetValue(vmType, out var vType)) return (Control)Activator.CreateInstance(vType!)!;
 
         string? name = vmType.AssemblyQualifiedName!.Replace("ViewModel", "View");
-        if(name is null) throw new ArgumentOutOfRangeException(nameof(viewModel));
+        if(name is null) throw new ArgumentOutOfRangeException(nameof(vmType));
         var type = Type.GetType(name);
         if (type is null || !type.IsAssignableTo(typeof(Control)))
         {

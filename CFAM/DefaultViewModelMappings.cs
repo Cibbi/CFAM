@@ -1,23 +1,30 @@
-﻿using CFAM.Views.Controls;
+﻿using System.Reflection;
+using CFAM.Attributes.AutoControl;
 
 namespace CFAM;
 
-public static class DefaultViewModelMappings
+public class DefaultViewModelMappings : IDefaultViewModelMappings
 {
-    public static Dictionary<Type, Type?> Instance { get; } = new()
-    {
-        { typeof(string), typeof(StringView) },
-        { typeof(short), typeof(ShortView) },
-        { typeof(int), typeof(IntView) },
-        { typeof(long), typeof(LongView) },
-        { typeof(float), typeof(FloatView) },
-        { typeof(double), typeof(DoubleView) },
-        { typeof(decimal), typeof(DecimalView) },
-        { typeof(bool), typeof(BoolView) }
-    };
+    private Dictionary<Type, Type> _mappings;
 
-    public static void AddMapping(Type valueType, Type ControlType)
+    public DefaultViewModelMappings()
     {
-        Instance.Add(valueType, ControlType);
+        _mappings = AppDomain.CurrentDomain
+            .GetAssemblies()
+            .SelectMany(x => x.GetTypes())
+            .Select(x => new {Type = x, Attribute = x.GetCustomAttribute<ControlForAttribute>()})
+            .Where(x => x.Attribute is not null)
+            .ToDictionary(x => x.Attribute!.PropertyType, x => x.Type);
+    }
+    
+    public bool TryGetMappingFor<T>(out Type type)
+    {
+        Type tType = typeof(T);
+        return TryGetMappingFor(tType, out type);
+    }
+    
+    public bool TryGetMappingFor(Type vmType, out Type type)
+    {
+        return _mappings.TryGetValue(vmType, out type!);
     }
 }
