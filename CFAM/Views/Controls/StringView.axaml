@@ -5,7 +5,9 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CFAM.Views.Controls.StringView">
   <StackPanel Margin="6">
-    <Label Content="{Binding Name}"></Label>
+    <Label
+        IsVisible="{Binding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 
+        Content="{Binding Name}"></Label>
     <TextBox Text="{Binding Value}"/>
   </StackPanel>
 </UserControl>

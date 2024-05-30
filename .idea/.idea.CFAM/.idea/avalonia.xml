@@ -3,6 +3,21 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="CFAM.Examples/CFAM.Examples/App.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM.Examples/CFAM.Examples/Views/MainView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/AutomaticUiBuilder/AutoIEnumerable.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/AutomaticUiBuilder/AutoIEnumerableView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/AutomaticUiBuilder/AutoView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/BoolView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/DecimalView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/DoubleView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/FloatView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/IntView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/LongView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/ShortView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Controls/StringView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Dialogs/ConfirmationDialogView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
+        <entry key="CFAM/Views/Dialogs/DialogsOverlayView.axaml" value="CFAM.Examples/CFAM.Examples.Browser/CFAM.Examples.Browser.csproj" />
         <entry key="Cibbi.CFAM.Examples.FluentWindow/App.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM.Examples.FluentWindow/Views/SecondTestView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />
         <entry key="Cibbi.CFAM.Examples.FluentWindow/Views/TestView.axaml" value="Cibbi.CFAM.Examples.FluentWindow/Cibbi.CFAM.Examples.FluentWindow.csproj" />

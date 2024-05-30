@@ -12,11 +12,13 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel />
   </Design.DataContext>
-    <Panel Margin="10">
-        <Interaction.Behaviors>
-            <behaviors:DynamicChildBehavior
-                x:DataType="vm:MainViewModel" 
-                Content="{Binding ExampleAutoObject, Mode=OneWay}"/>
-        </Interaction.Behaviors>
-    </Panel>
+    <ScrollViewer Margin="10">
+        <Panel>
+            <Interaction.Behaviors>
+                <behaviors:DynamicChildBehavior
+                    x:DataType="vm:MainViewModel" 
+                    Content="{Binding ExampleAutoObject, Mode=OneWay}"/>
+            </Interaction.Behaviors>
+        </Panel>
+    </ScrollViewer>
 </UserControl>

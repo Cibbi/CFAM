@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reactive.Disposables;
 using System.Reflection;
-using Avalonia;
 using CFAM.Attributes.AutoControl;
 using Humanizer;
 using ReactiveMarbles.ObservableEvents;
