@@ -4,5 +4,5 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CFAM.Views.Controls.BoolView">
-  <CheckBox Margin="6" IsChecked="{Binding Value}" Content="{Binding Name}"/>
+  <CheckBox Margin="6" IsEnabled="{Binding IsEnabled}" IsChecked="{Binding Value}" Content="{Binding Name}"/>
 </UserControl>

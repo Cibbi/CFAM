@@ -18,6 +18,8 @@ public sealed class PropertyValueViewModel<T> : ViewModelBase, IActivatableViewM
     private INotifyPropertyChanging? _parentChanging;
     
     public string Name { get; }
+    
+    public bool IsEnabled { get; }
 
     public T? Value
     {
@@ -39,6 +41,10 @@ public sealed class PropertyValueViewModel<T> : ViewModelBase, IActivatableViewM
         _propertyInfo = propertyInfo;
 
         var attribute = _propertyInfo.GetCustomAttribute<VisualNameAttribute>();
+
+        IsEnabled = (_propertyInfo.GetCustomAttribute<DisabledAttribute>() is null && (_propertyInfo.GetSetMethod(true)?.IsPublic ?? false)) || 
+                    (_propertyInfo.GetCustomAttribute<IncludePropertyAttribute>() is not null && _propertyInfo.GetCustomAttribute<DisabledAttribute>() is null) ||
+                    _propertyInfo.GetCustomAttribute<EnabledAttribute>() is not null;
 
         Name = attribute is null ? _propertyInfo.Name.Humanize(LetterCasing.Title) : attribute.Name;
 

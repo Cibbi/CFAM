@@ -10,6 +10,7 @@
         Content="{Binding Name}"></Label>
     <NumericUpDown 
       Name="Value"
+      IsEnabled="{Binding IsEnabled}" 
       Text="{Binding Value}"/>
   </StackPanel>
   

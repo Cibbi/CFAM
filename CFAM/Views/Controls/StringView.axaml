@@ -8,6 +8,8 @@
     <Label
         IsVisible="{Binding Name, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" 
         Content="{Binding Name}"></Label>
-    <TextBox Text="{Binding Value}"/>
+    <TextBox 
+        IsEnabled="{Binding IsEnabled}" 
+        Text="{Binding Value}"/>
   </StackPanel>
 </UserControl>

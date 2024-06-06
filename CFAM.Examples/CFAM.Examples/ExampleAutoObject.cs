@@ -8,6 +8,7 @@ public class ExampleAutoObject : ViewModelBase
 {
     public int PublicInteger { get; set; }
     public string PublicString { get; set; }
+    public string PublicDisabledString { get; } = "Test";
     [VisualName("Custom Named String")]
     public string PublicString2 { get; set; }
     private int PrivateHiddenInteger { get; set; }

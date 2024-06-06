@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Avalonia.Controls;
-using CFAM.Attributes.AutoControl;
 using CFAM.Extensions;
 using CFAM.Services;
 using CFAM.ViewModels;

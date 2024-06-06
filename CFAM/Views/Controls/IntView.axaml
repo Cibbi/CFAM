@@ -11,6 +11,7 @@
     <NumericUpDown
       Name="Value"
       FormatString="0"
+      IsEnabled="{Binding IsEnabled}" 
       Text="{Binding Value}"/>
   </StackPanel>
 </UserControl>
