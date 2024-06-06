@@ -3,7 +3,7 @@ using PropertyChanged.SourceGenerator;
 
 namespace CFAM.DataModels;
 
-public class SelectableRow<T> : ViewModelBase
+public partial class SelectableRow<T> : ViewModelBase
 {
     [Notify] private T _item;
     [Notify] private bool _isSelected;
