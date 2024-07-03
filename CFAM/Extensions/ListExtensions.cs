@@ -66,6 +66,25 @@ public static class ListExtensions
         return enumerable.AddOnThreadAsync(toAdd, RxApp.TaskpoolScheduler);
     }
     
+    public static IObservable<Unit> InsertOnThreadAsync<T>(this IList<T> enumerable, int index, T toAdd, IScheduler scheduler)
+    {
+        return Observable.Start(() => {
+            enumerable.Insert(index, toAdd);
+        }, scheduler);
+    }
+    
+    [UsedImplicitly]
+    public static IObservable<Unit> InsertOnUIThreadAsync<T>(this IList<T> enumerable, int index, T toAdd)
+    {
+        return enumerable.InsertOnThreadAsync(index, toAdd, RxApp.MainThreadScheduler);
+    }
+    
+    [UsedImplicitly]
+    public static IObservable<Unit> InsertOnTaskThreadAsync<T>(this IList<T> enumerable, int index, T toAdd)
+    {
+        return enumerable.InsertOnThreadAsync(index, toAdd, RxApp.TaskpoolScheduler);
+    }
+    
     public static IObservable<Unit> RemoveOnThreadAsync<T>(this IList<T> enumerable, T toRemove, IScheduler scheduler)
     {
         return Observable.Start(() => {
