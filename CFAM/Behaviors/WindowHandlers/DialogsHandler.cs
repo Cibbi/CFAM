@@ -1,26 +1,46 @@
-﻿using Avalonia;
+﻿using System.Reactive.Linq;
+using Avalonia;
+using Avalonia.Data;
+using Avalonia.Threading;
 using CFAM.ViewModels;
 using CFAM.ViewModels.WindowServices;
+using ReactiveUI;
 
 namespace CFAM.Behaviors.WindowHandlers;
 
 public class DialogsHandler : WindowServiceHandler
 {
-    public static readonly StyledProperty<OverlaysHandler> OverlaysHandlerProperty =
-        AvaloniaProperty.Register<DialogsHandler, OverlaysHandler>(nameof(OverlaysHandler));
-
-    private readonly Dialogs _dialogs= new ();
     
+   public static readonly DirectProperty<DialogsHandler, OverlaysHandler> OverlaysHandlerProperty =
+        AvaloniaProperty.RegisterDirect<DialogsHandler, OverlaysHandler>(
+            nameof(OverlaysHandler),
+            o => o.OverlaysHandler,
+            (o, v) => o.OverlaysHandler = v);
+
+    private OverlaysHandler _overlaysHandler = new();
+
     public OverlaysHandler OverlaysHandler
+    {
+        get { return _overlaysHandler; }
+        set { SetAndRaise(OverlaysHandlerProperty, ref _overlaysHandler, value); }
+    }
+
+    /*public static readonly StyledProperty<OverlaysHandler> OverlaysHandlerProperty =
+        AvaloniaProperty.Register<DialogsHandler, OverlaysHandler>(nameof(OverlaysHandler));*/
+
+    private readonly Dialogs _dialogs = new ();
+    
+   /* public OverlaysHandler OverlaysHandler
     {
         get => GetValue(OverlaysHandlerProperty);
         set => SetValue(OverlaysHandlerProperty, value);
-    }
+    }*/
 
     protected override void OnDataContextChanged()
     {
         base.OnDataContextChanged();
         if (OverlaysHandler is null) return;
+        //var handler = GetValue(OverlaysHandlerProperty);
         var overlayService = OverlaysHandler.GetOverlaysService();
         if (overlayService.GetOverlay("Dialogs") is not null)
         {
@@ -29,7 +49,6 @@ public class DialogsHandler : WindowServiceHandler
         overlayService.AddOverlay("Dialogs",
             new OverlayViewModel(_dialogs._dialogsOverlay) {IsEnabled = true, ZIndex = 1000});
         Provider?.AddService(_dialogs);
-
-
+        
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using Avalonia.Controls;
+using Avalonia.Xaml.Interactivity;
+using CFAM.Behaviors.WindowHandlers;
 using CFAM.ViewModels.Mains;
 using ReactiveUI;
 
@@ -10,6 +12,7 @@ public partial class HeaderedMainView : UserControl, IActivatableView
     public HeaderedMainView()
     {
         InitializeComponent();
+        
         this.WhenActivated(disposable =>
         {
             if (DataContext is not HeaderedMainViewModel ViewModel) return;
@@ -30,4 +33,21 @@ public partial class HeaderedMainView : UserControl, IActivatableView
             }).DisposeWith(disposable);
         });
     }
+    
+    private void GetBehaviorsFromControl()
+    {
+        // Get the behaviors collection for this control
+        var behaviors = Interaction.GetBehaviors(this);
+    
+        // Now you can access individual behaviors
+        var overlaysHandler = behaviors.OfType<OverlaysHandler>().FirstOrDefault();
+        var dialogsHandler = behaviors.OfType<DialogsHandler>().FirstOrDefault();
+    
+        // Connect them programmatically
+        if (overlaysHandler != null && dialogsHandler != null)
+        {
+            dialogsHandler.OverlaysHandler = overlaysHandler;
+        }
+    }
+
 }

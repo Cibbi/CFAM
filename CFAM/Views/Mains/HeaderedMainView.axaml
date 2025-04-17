@@ -6,16 +6,17 @@
              xmlns:converters="clr-namespace:CFAM.Converters"
              xmlns:cfam="clr-namespace:CFAM"
              xmlns:windowHandlers="clr-namespace:CFAM.Behaviors.WindowHandlers"
+             xmlns:i="using:Avalonia.Xaml.Interactivity"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CFAM.Views.Mains.HeaderedMainView"
              x:DataType="mains:HeaderedMainViewModel">
-    <Interaction.Behaviors>
+    <i:Interaction.Behaviors>
         <windowHandlers:ClipboardHandler />
         <windowHandlers:NotificationHandler />
         <windowHandlers:StorageHandler />
-        <windowHandlers:OverlaysHandler x:Name="OverlaysHandler" TargetPanel="{Binding ElementName=OverlayLayer}" />
-        <windowHandlers:DialogsHandler OverlaysHandler="{Binding ElementName=OverlaysHandler}" />
-    </Interaction.Behaviors>
+        <windowHandlers:OverlaysHandler TargetPanel="{Binding ElementName=OverlayLayer}"/>
+        <windowHandlers:DialogsHandler />
+    </i:Interaction.Behaviors>
     <Viewbox Stretch="Uniform" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid x:Name="MainGrid" 
           Width="{Binding $parent[UserControl].Bounds.Width, Converter={x:Static converters:WidthToScaledWidthConverter.Instance}, ConverterParameter={x:Static cfam:CFAMSettings.UIScaling}}"
@@ -65,6 +66,7 @@
         
         <Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="OverlayLayer">
         </Panel>
+        
         <!--<Panel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Name="Overlay" Background="Transparent"/>-->
     </Grid>
     </Viewbox>
